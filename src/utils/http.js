@@ -5,6 +5,8 @@ import Vue from 'vue'
 
 axios.defaults.baseURL = ''
 axios.defaults.method = 'post'
+
+console.log(process.env)
 axios.defaults.errorHandler = function (message) {
 	Vue.prototype.$message({
 		type: 'warning',

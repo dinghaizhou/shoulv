@@ -1,5 +1,6 @@
 module.exports = {
     // 选项...
+    // base: '/aa',
     devServer: {
         // proxy: 'http://localhost:4000'
         proxy: {
@@ -12,6 +13,5 @@ module.exports = {
                }
              }
         }
-        
     }
 }
