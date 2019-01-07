@@ -11,7 +11,7 @@ import http from  './utils/http'
 import Cookies from 'js-cookie';
 
 import VueAwesomeSwiper from 'vue-awesome-swiper'
-import 'vue-awesome-swiper/dist/css/swiper.css'
+// import 'vue-awesome-swiper/dist/css/swiper.css'
 Vue.use(VueAwesomeSwiper)
 
 Vue.prototype.$echarts = echarts
