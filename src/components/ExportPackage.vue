@@ -13,7 +13,7 @@
             </div>
             <div v-if="isAPI">
                 <div class="tips">选择要导入的人群包类型</div>
-                <filterCheckbox :lists="list"/>
+                <filterCheckbox :lists="list" v-model="type"/>
             </div>
             <div class="mode-style">
                 <el-checkbox v-model="isFile" @change="handleIsFileChange"></el-checkbox>
@@ -21,11 +21,11 @@
             </div>
             <div v-if="isFile">
                 <div class='tips'>选择要导入的人群包类型</div>
-                <filterCheckbox :lists="list"/>
+                <filterCheckbox :lists="list" v-model="type"/>
             </div>
             <div style="margin-top:30px;">
-                <el-button class="button-mini" type="primary" style="min-width:98px;">导出</el-button>
-                <span style='margin-left:20px;color:#9fa1a7;font-size:12px;line-height:12px;vertical-align:bottom'>人群数量： 10000人</span>
+                <el-button class="button-mini" type="primary" style="min-width:98px;" @click="exportOut">导出</el-button>
+                <span style='margin-left:20px;color:#9fa1a7;font-size:12px;line-height:12px;vertical-align:bottom'>人群数量： {{currentRow.number}}人</span>
             </div>
         </el-dialog>
     </div>
@@ -38,19 +38,26 @@
         props: {
             visiable: {
                 default: false,
+            },
+            currentRow: {
+                type: Object,
+                default: function() {
+                    return {}
+                }
             }
         },
         data: () => {
             return {
-                isAPI: true,
-                isFile: false,
+                isAPI: false,
+                isFile: true,
                 list: [
-                    {name: '用户ID', id: '1'},
-                    {name: '手机号码', id: '2'}
-                ]
+                    {name: '用户ID', id: 'userid'},
+                ],
+                type: 'userid'
             }
         },
         mounted() {
+
         },
         methods: {
             handleClose() {
@@ -61,6 +68,10 @@
             },
             handleIsFileChange(value) {
                 this.isAPI = !value
+            },
+            exportOut() {
+                
+                window.open('api/Crowdchoose/export?id=' + this.currentRow.id)
             }
         },
         

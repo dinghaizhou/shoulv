@@ -77,12 +77,12 @@
                 </div>
             </el-row>
         </div>
-        <check-dialog @checkConfirm="checkConfirm" :visiable.sync="checkVisiable"></check-dialog>
+        <check-dialog :addData="addData" @checkConfirm="checkConfirm" :visiable.sync="checkVisiable"></check-dialog>
         <add-dialog @addConfirm="addConfirm" :visiable.sync="addVisiable"></add-dialog>
 
         <edit-dialog @updateTable="updateTable" :currentRow="currentRow" :visiable.sync="editVisiable"></edit-dialog>
-        <insight-dialog :visiable.sync="insightVisiable"></insight-dialog>
-        <export-package :visiable.sync="packageDialogVisiable"></export-package>
+        <insight-dialog :visiable.sync="insightVisiable" :insightData="insightData"></insight-dialog>
+        <export-package :currentRow="currentRow"  :visiable.sync="packageDialogVisiable"></export-package>
         <delete-dialog :currentRow="currentRow" @updateTable="updateTable"  :visiable.sync="deleteVisiable"></delete-dialog>
   </div>
 </template>
@@ -110,7 +110,17 @@
                 insightVisiable: false,
                 packageDialogVisiable: false,
                 deleteVisiable: false,
-                currentRow: {}
+                currentRow: {},
+                insightData: {
+                    PC: 25,
+                    Moblie: 25,
+                    Wechat: 50,
+                    Male: 75,
+                    Female: 25,
+                    Online: 25,
+                    Outline: 75,
+                },
+                addData: {}
             }
         },
         mounted() {
@@ -130,21 +140,35 @@
             },
             insight() {
                 this.insightVisiable = true
+                this.insightData = {
+                    PC: Math.random()*100,
+                    Moblie: 25,
+                    Wechat: 50,
+                    Male: 75,
+                    Female: 25,
+                    Online: 25,
+                    Outline: 75,
+                    data: {
+
+                    }
+                }
             },
             edit(row) {
                 this.editVisiable = true
                 this.currentRow = row
             },
-            exportPackage() {
+            exportPackage(row) {
                 this.packageDialogVisiable = true
+                this.currentRow = row
             },
             deletePackage(row) {
                 this.deleteVisiable = true
                 this.currentRow = row
             },
-            addConfirm(value) {
+            addConfirm(data) {
                 this.checkVisiable = true
                 this.addVisiable = false
+                this.addData = data
             },
             checkConfirm() {
                 this.checkVisiable = false

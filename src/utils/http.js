@@ -16,7 +16,7 @@ axios.defaults.errorHandler = function (message) {
 
 axios.defaults.loading = false
 axios.defaults.withCredentials = true
-axios.defaults.headers.post['content-Type'] = 'appliction/x-www-form-urlencoded';
+// axios.defaults.headers.post['content-Type'] = 'appliction/x-www-form-urlencoded';
 
 // 请求拦截器
 axios.interceptors.request.use(function (config) {
@@ -38,7 +38,7 @@ axios.interceptors.response.use(
             default: axios.defaults.errorHandler(response.data.msg);return Promise.reject(response.data);
         }
     }, function (error) {
-        if(error.config.loading) {
+        if(error.config && error.config.loading) {
             error.config.loading.loading = false
         }
         return Promise.reject(error)

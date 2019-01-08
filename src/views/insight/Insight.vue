@@ -30,10 +30,7 @@
             }
         },
         mounted() {
-            this.$http.get('http://154.8.197.214/api/user')
-            .then((res) => {
-
-            })
+            
         },
         methods: {
 

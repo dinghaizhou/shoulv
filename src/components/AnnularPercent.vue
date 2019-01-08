@@ -18,8 +18,6 @@
         mounted() {
             let myChart = this.$echarts.init(document.getElementById(this.name))
             var percent = this.percent
-            percent = percent.replace('%','')
-            percent = 1 * percent
             var data = [
                             {value: percent, name:'已经', itemStyle:{color: this.color}},
                             {value: 100 - percent, name:'没有', 

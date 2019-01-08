@@ -7,17 +7,17 @@
         
         <div style="width:100%;display:flex;">
             <div class="flex-a" style="width:44%;border-right: 1px solid #eee">
-                <annular-percent name="PC" percent="25%" color="#5490d6"></annular-percent>
-                <annular-percent name="Moblie" percent="75%" color="#e07d70"></annular-percent>
-                <annular-percent name="Wechat" percent="15%" color="#5cc8a6"></annular-percent>
+                <annular-percent name="PC" :percent="insightData.PC" color="#5490d6"></annular-percent>
+                <annular-percent name="Moblie" :percent="insightData.Moblie" color="#e07d70"></annular-percent>
+                <annular-percent name="Wechat" :percent="insightData.Wechat" color="#5cc8a6"></annular-percent>
             </div>
             <div class="flex-a" style="width: 28%;border-right: 1px solid #eee">
-                <annular-percent name="Male" percent="34%" color="#906f65"></annular-percent>
-                <annular-percent name="Female" percent="35%" color="#dc6993"></annular-percent>
+                <annular-percent name="Male" :percent="insightData.Male" color="#906f65"></annular-percent>
+                <annular-percent name="Female" :percent="insightData.Female" color="#dc6993"></annular-percent>
             </div>
-            <div class="flex-a" style="width: 28%;">
-                <annular-percent name="Online" percent="26%" color="#61c2b9"></annular-percent>
-                <annular-percent name="Outline" percent="55%" color="#a998c9"></annular-percent>
+            <div class="flex-a" style="width: 28;">
+                <annular-percent name="Online" :percent="insightData.Online" color="#61c2b9"></annular-percent>
+                <annular-percent name="Outline" :percent="insightData.Outline" color="#a998c9"></annular-percent>
             </div>
 
         </div>
@@ -25,21 +25,32 @@
 </template>
 <script>
     import AnnularPercent from '@/components/AnnularPercent'
-
     export default {
         name: 'active-user',
         components: {AnnularPercent},
+        props: {
+            insightData: {
+                default: function() {
+                    return {}
+                }
+            }
+        },
 
         data: () => {
             return {
             }
         },
-        methods: {
-            
+        watch: {
+            insightData () {
+                console.log(33)
+                this.drawTable()
+            }
+
         },
         mounted() {
             this.myChart = this.$echarts.init(document.getElementById('activeUserLine'))
             this.drawTable()
+            console.log(this.insightData)
         },
         methods: {
             drawTable() {

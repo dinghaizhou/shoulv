@@ -1,7 +1,7 @@
 <template>
     <div class="edit-dialog" v-loading="loading">
         <el-dialog
-            title="创建人群"
+            title="编辑人群"
             top="30vh"
             :visible.sync="visiable"
             width="30%"

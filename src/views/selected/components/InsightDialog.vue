@@ -1,25 +1,29 @@
 <template>
     <div class="edit-dialog">
         <el-dialog
-            title="创建人群"
+            title="人群洞察"
             top="15vh"
             :visible.sync="visiable"
             width="86%"
             :before-close="handleClose">
-            <active-user></active-user>
+            <active-user :insightData="insightData"></active-user>
 
         </el-dialog>
     </div>
 </template>
 <script>
     import ActiveUser from '@/components/ActiveUser.vue'
-
     export default {
         name: 'edit-dialog',
         components: {ActiveUser},
         props: {
             visiable: {
                 default: false,
+            },
+            insightData: {
+                default: function() {
+                    return {}
+                }
             }
         },
         data: () => {

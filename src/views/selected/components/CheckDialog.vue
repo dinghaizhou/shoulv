@@ -7,10 +7,10 @@
             width="30%"
             :before-close="handleClose">
             <div class="text">
-                所上传人群包中包含的人数： <span class="em">60000人</span>
+                所上传人群包中包含的人数： <span class="em">{{addData.uploadCount}}人</span>
             </div>
             <div class='text'>
-                可创建人群包人数： <span class="em">40000人</span>
+                可创建人群包人数： <span class="em">{{addData.count}}人</span>
             </div>
             <el-button @click="confirm" type="primary" class="button-mini" style="margin-top:30px;min-width:98px;">
                 创建
@@ -25,14 +25,19 @@
         props: {
             visiable: {
                 default: false,
+            },
+            addData: {
+                default: function() {
+                    return {}
+                }
             }
         },
         data: () => {
             return {
+                
             }
         },
         mounted() {
-            console.log(this.visiable)
         },
         methods: {
             handleClose() {

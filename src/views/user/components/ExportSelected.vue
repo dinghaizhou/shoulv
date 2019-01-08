@@ -72,11 +72,11 @@
                         this.$message.warning('筛选人群数量为零，请重新筛选')
                         return
                     }
-                    if (!this.title) {
+                    if (!this.title.trim()) {
                         this.$message.warning('请输入标题')
                         return
                     }
-                    if (!this.detail) {
+                    if (!this.detail.trim()) {
                         this.$message.warning('请输入描述')
                         return
                     }

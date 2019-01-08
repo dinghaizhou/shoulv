@@ -22,7 +22,6 @@
             this.myChart = this.$echarts.init(document.getElementById('userLocationMap'))
             // this.screenWidth = window.screen.width 
             this.screenWidth = document.body.offsetWidth
-            console.log(this.screenWidth)
             this.drawTable()
         },
         methods: {

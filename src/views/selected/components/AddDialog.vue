@@ -2,11 +2,10 @@
     <div class="add-dialog">
         <el-dialog
             title="创建人群"
-            top="30vh"
+            top="15vh"
             :visible.sync="visiable"
             width="30%"
             :before-close="handleClose">
-            
             <el-input maxlength="10" placeholder="请输入人群标题" v-model="title" style="margin-top:15px;">
                 <span slot="suffix" style="line-height:34px;">{{title.length}}/10</span>
             </el-input>
@@ -23,23 +22,36 @@
                 <span class="text-length">{{detail.length}}/50</span>
             </div>
             <div class="title-tips">选择人群包类型</div>
-            <filter-checkbox :lists="typeLists" right="20px"></filter-checkbox>
+            <filter-checkbox :lists="typeLists" v-model="type" right="20px"></filter-checkbox>
             <div class="title-tips">
                 EXCEL表格形式，大小不超过***
-                <span style="color:#1790ff;margin-left:10px;">下载模版示例</span>
+                <span style="color:#1790ff;margin-left:10px;cursor:pointer">下载模版示例</span>
             </div>
-            <div class="upload" >
-               <input @change="uploadFile" type="file" id="packageUpload" style="display: none;">
+            <div class="upload" v-if="show_button">
+               <input @change="uploadFile" ref="upload" type="file" id="packageUpload" style="display: none;">
                <label for="packageUpload"> <span style="margin-right:10px;font-size: 14px;">+</span> 点击上传人群包</label>
             </div>
-            <div class="flex-b" style="align-items:center;">
-                <div class="process-bar" >
-                    <div class="inner-bar" :style="{width: process + '%'}">
-
-                    </div>
+            <div v-else>
+                <div class="flex-b">
+                    <span style="line-height: 28px;">{{file ? file.name : ''}}</span>
+                    <!-- <i class="el-icon-delete" style="cursor:pointer"></i> -->
+                   <el-button
+                    @click="deletefile"
+                    style="color:#f78484;margin:0 30px 0 0;"
+                    type="text"
+                    size="small">
+                    删除
+                    </el-button>
                 </div>
-                <div  class="process-text">
-                    {{process}}%
+                <div class="flex-b" style="align-items:center;">
+                    <div class="process-bar" >
+                        <div class="inner-bar" :style="{width: process + '%'}">
+
+                        </div>
+                    </div>
+                    <div  class="process-text">
+                        {{process}}%
+                    </div>
                 </div>
             </div>
             <el-button @click="confirm" type="primary" class="button-mini" style="margin-top: 30px;min-width:98px;">
@@ -65,38 +77,100 @@
                 typeLists: [
                     {
                         name: '用户ID',
-                        id: '1'
-                    },
-                    {
-                        name: '手机号码',
-                        id: '2'
-                    },
+                        id: 'userid'
+                    }
                 ],
-                is_uploading: false,
-                process: '0'
+                type: 'userid',
+                show_button: true,
+                process: '0',
+                file: null,
+                filename: '',
+                is_uploading: false
             }
         },
         mounted() {
-            console.log(this.visiable)
-            setInterval(() => {
-                // this.process ++
-            }, 100)
         },
         methods: {
             handleClose() {
+                this.is_uploading = false
+                this.process = '0'
+                this.file = null
+                this.show_button = true
+                this.filename = ''
                 this.$emit('update:visiable', false)
             },
             uploadFile(e) {
-                var file = e.target.files[0]
+                let CancelToken = this.$http.CancelToken
+                var file = this.$refs.upload.files[0]  
+                this.file = file  
+
+                var that = this
                 var fd = new FormData();
-                fd.append('myFile', file);
+                fd.append('source', file);
+                this.$http.post('/api/Crowdchoose/upload',fd, 
+                {
+                    headers: { 'Content-Type': 'multipart/form-data'},
+                    onUploadProgress: progressEvent => {
+                        that.show_button = false
+                        this.is_uploading = true
+                        var complete = (progressEvent.loaded / progressEvent.total * 100 | 0)
+                        this.process = complete
+                    },
+                    cancelToken: new CancelToken(function executor(c) {
+                        that.cancel = c
+                    })
+                })
+                .then((res) => {
+                    this.is_uploading = false
+                    this.filename = res.data.filename
+                })
+                .catch((res) => {
+                    this.is_uploading = false
+                    this.process = '0'
+                    this.file = null
+                    this.show_button = true
+                    this.filename = ''
+                })
             },
             confirm() {
-                this.$emit('addConfirm', 'haha')
+                if(!this.filename) {
+                    this.$message.warning('请上传文件')
+                    return
+                }
+                if(!this.title) {
+                    this.$message.warning('请填写标题')
+                    return
+                }
+                if(!this.detail) {
+                    this.$message.warning('请填写描述')
+                    return
+                }
+
+                this.$http.post('/api/Crowdchoose/import',{
+                    name: this.title,
+                    describe: this.detail,
+                    filename: this.filename,
+                    type: this.type
+                })
+                .then((res) => {
+                    this.$emit('addConfirm', res.data)
+                    this.process = '0'
+                    this.show_button = true
+                    this.file = null
+                    this.filename = ''
+                })
+            },
+            deletefile() {
+                if(this.is_uploading) {
+                    this.cancel()
+                } else {
+                    this.process = '0'
+                    this.file = null
+                    this.show_button = true
+                    this.filename = ''
+                }
             }
         },
-        
-       
     }
 </script>
 <style lang="scss" scoped>
