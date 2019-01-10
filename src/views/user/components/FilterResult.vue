@@ -52,6 +52,7 @@
         },
         props:[],
         computed: {
+
             ...mapState({
                 filterMode: state => state.user.filterMode,
                 filters: state => state.user.filters,
@@ -82,6 +83,8 @@
                     this.$message.warning('请输入标签名')
                     return
                 }
+
+                this.$store.commit('changeLoading', true)
                 this.$http.post('/api/Consumer/setTag',{
                     info: JSON.stringify(this.filters),
                     name: this.tagNames
@@ -91,7 +94,8 @@
                     this.tagNames = ''
                 })
                 .catch((res) => {
-                    console.log(res)
+                    this.$message.warning('保存失败')
+                    this.$store.commit('changeLoading', false)
                 })
 
             },

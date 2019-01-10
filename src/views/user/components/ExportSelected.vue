@@ -1,5 +1,5 @@
 <template>
-    <div class="export-selected">
+    <div class="export-selected" v-loading='loading_serach'>
         <el-dialog
             title="导出到人群优选"
             top="30vh"
@@ -51,6 +51,7 @@
                 filters: state => state.user.filters,
                 filterResult: state => state.user.filterResult,
                 tagId: state => state.user.tagId,
+                loading_serach: state => state.user.loading_serach
             })
         },
         mounted() {
@@ -80,19 +81,21 @@
                         this.$message.warning('请输入描述')
                         return
                     }
+                    this.$store.commit('changeLoading', true)
                     this.$http.post('/api/Consumer/exportToCrowdChoose', {
                         name: this.title,
                         info: JSON.stringify(this.filters),
                         describe: this.detail
                     })
                     .then((res) => {
+                        this.$store.commit('changeLoading', false)
                         this.$message.success('导出成功')
                         this.$emit('update:visiable', false)
                         this.title = ''
                         this.detail = ''
                     })
                     .catch((res) => {
-                        console.log(res)
+                        this.$store.commit('changeLoading', false)
                     })
                 } else {
                     if(!this.tagId) {
@@ -111,19 +114,21 @@
                         this.$message.warning('请输入描述')
                         return
                     }
+                    this.$store.commit('changeLoading', true)
                     this.$http.post('/api/Consumer/exportToCrowdChooseByTagId', {
                         id: this.tagId,
                         name: this.title,
                         describe: this.detail
                     })
                     .then((res) => {
+                        this.$store.commit('changeLoading', false)
                         this.$message.success('导出成功')
                         this.$emit('update:visiable', false)
                         this.title = ''
                         this.detail = ''
                     })
                     .catch((res) => {
-                        console.log(res)
+                        this.$store.commit('changeLoading', false)
                     })
                 }
             }

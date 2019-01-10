@@ -8,9 +8,9 @@
         </el-row>
         <div class="innerbox">
             <el-row class="clearfix" style="margin-bottom:20px;">
-                <el-input class="pull-left" placeholder="请输入搜索内容" style="width:322px;margin-right:30px;"></el-input>
-                <el-button class="button-max pull-left" style="line-height:38px;">确认</el-button>
-                <el-button class="button-max pull-left" style="line-height:38px;">取消</el-button>
+                <el-input v-model="search_text" class="pull-left" placeholder="请输入搜索内容" style="width:322px;margin-right:30px;"></el-input>
+                <el-button class="button-max pull-left" style="line-height:38px;" @click="search">确认</el-button>
+                <el-button class="button-max pull-left" style="line-height:38px;" @click="cancel_search">取消</el-button>
             </el-row>
             <el-row>
                 <el-table
@@ -120,7 +120,8 @@
                     Online: 25,
                     Outline: 75,
                 },
-                addData: {}
+                addData: {},
+                search_text: ''
             }
         },
         mounted() {
@@ -173,6 +174,17 @@
                     this.tableData = res.data.list
                     this.total = res.data.searchTotal
                 })
+            },
+            search() {
+                this.$http.post('/api/Crowdchoose/getCrowdChooselist',{page:this.page, pageSize: this.pageSize, name: this.search_text}, {loading: this})
+                .then((res) => {
+                    this.tableData = res.data.list
+                    this.total = res.data.searchTotal
+                })
+            },
+            cancel_search() {
+                this.search_text = ''
+                this.getList()
             }
         }
     }

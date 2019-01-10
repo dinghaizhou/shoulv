@@ -16,12 +16,14 @@
         },
         watch: {
             'percent'() {
+                console.log(this.percent)
                 this.drawPercent()
             }
         },
 
         mounted() {
             this.myChart = this.$echarts.init(document.getElementById(this.name))
+            this.drawPercent()
         },
         methods: {
             drawPercent() {

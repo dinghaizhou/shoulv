@@ -1,7 +1,7 @@
 <template>
-    <div class="user" v-loading="loading_serach">
+    <div class="user">
         <div class="menu-title">{{this.$route.meta.title}}</div>
-        <div class="innerbox clearfix" style="margin-bottom: 20px;">
+        <div class="innerbox clearfix" style="margin-bottom: 20px;"  v-loading="loading_search">
             <ul class="clearfix title">
                 <li :class="{'active': filterMode == 'custom'}" @click="changeFilterMode('custom')">自定义筛选</li>
                 <li :class="{'active': filterMode == 'tags'}" @click="changeFilterMode('tags')">标签筛选</li>
@@ -66,7 +66,7 @@
                 filterMode: state => state.user.filterMode,
                 filters: state => state.user.filters,
                 filterResult: state => state.user.filterResult,
-                loading_serach: state => state.user.loading_serach,
+                loading_search: state => state.user.loading_search,
             })
             
         },

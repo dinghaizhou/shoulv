@@ -6,7 +6,7 @@ export default {
         filterResult: {rate:0, searchTotal:0, },
         page: 1,
         pageSize: 10,
-        loading_serach: false,
+        loading_search: false,
         tagId: ''
     },
     mutations: {
@@ -25,8 +25,8 @@ export default {
         changePageSize(state, value) {
             state.pageSize = value
         },
-        changeLoadingChange(state,value) {
-            state.loading_serach = value
+        changeLoading(state,value) {
+            state.loading_search = value
         },
         changeTagId(state,value) {
             state.tagId = value
@@ -34,33 +34,33 @@ export default {
     },
     actions: {
         getFilterResultByFilters(store, filters) {
-            store.commit('changeLoadingChange', true)
+            store.commit('changeLoading', true)
             http.post("/api/Consumer/search", {
                 ...filters,
                 page: store.state.page, 
                 pageSize: store.state.pageSize
             })
             .then((res) => {
-                store.commit('changeLoadingChange', false)
+                store.commit('changeLoading', false)
                 store.commit('changeFilterResult', res.data)
                 store.commit('changeFilters', filters)
             })
         },
         getFilterResultById(store, id) {
-            store.commit('changeLoadingChange', true)
+            store.commit('changeLoading', true)
             http.post("/api/Consumer/getUserListByTagId", {
                 id,
                 page: store.state.page, 
                 pageSize: store.state.pageSize
             })
             .then((res) => {
-                store.commit('changeLoadingChange', false)
+                store.commit('changeLoading', false)
                 store.commit('changeFilterResult', res.data)
                 store.commit('changeTagId', id)
             })
         },
         getFilterResultByPage(store) {
-            store.commit('changeLoadingChange', true)
+            store.commit('changeLoading', true)
             if(store.state.filterMode == 'custom') {
                 http.post("/api/Consumer/search", {
                     ...store.state.filters,
@@ -68,7 +68,7 @@ export default {
                     pageSize: store.state.pageSize
                 })
                 .then((res) => {
-                    store.commit('changeLoadingChange', false)
+                    store.commit('changeLoading', false)
                     store.commit('changeFilterResult', res.data)
                 })
             } else {
