@@ -26,6 +26,7 @@
         methods: {
             drawPercent() {
                 var percent = this.percent ? this.percent : 0
+                percent = percent.toFixed()*1
                 var data = [
                                 {value: percent, name:'已经', itemStyle:{color: this.color}},
                                 {value: 100 - percent, name:'没有', 
@@ -56,7 +57,7 @@
                             left: 'center', // 相对父元素居中
                             top: '110',  // 相对父元素上下的位置
                             style: {
-                                text: this.name + '  ' + percent,
+                                text: this.type + '  ' + percent + '%',
                                 font: 'bolder 16px "Microsoft YaHei"',
                                 fill: this.color
                                 }
@@ -69,10 +70,8 @@
                             radius : [42, 48],
                             center: ['50%', '50%'],
                             startAngle: 225,
-
                             hoverAnimation: false,
                             // hoverOffset: 50,
-
                             selectedMode: 'single',
                             // clockwise: false,
                             // roseType: true,

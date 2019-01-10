@@ -30,6 +30,22 @@ axios.interceptors.request.use(function (config) {
 // 响应拦截器
 axios.interceptors.response.use(
     function (response) {
+        if(response.data instanceof Blob) {
+            var blob = response.data
+            var contentDisposition = response.headers['content-disposition']
+            var filename = contentDisposition.split('"')[1]
+            createDownload(filename, blob)
+            function createDownload(fileName, blob){
+                const link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = fileName;
+                link.click();
+                window.URL.revokeObjectURL(link.href);
+            }
+            return response.data 
+        }
+       
+
 	    if(response.config.loading)
             response.config.loading.loading = false
         var code = response.data.code

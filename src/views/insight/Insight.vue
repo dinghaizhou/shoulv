@@ -2,23 +2,23 @@
     <div class="insight">
         <div class="menu-title">{{this.$route.meta.title}}</div>
         <div class="innerbox" style="margin-bottom: 20px;">
-            <!-- <active-user></active-user> -->
+            <active-user :insightData="insightData"></active-user>
         </div>
         <div class="flex-b">
+            <div class="bottom-items">
+                <user-location :insightData="insightData"></user-location>
+            </div>
             <div class="bottom-items">
                 <user-resource></user-resource>
             </div>
             <div class="bottom-items">
                 <wechat-fans></wechat-fans>
             </div>
-            <div class="bottom-items">
-                <user-location></user-location>
-            </div>
         </div>
     </div>
 </template>
 <script>
-    import ActiveUser from './components/ActiveUser.vue'
+    import ActiveUser from '@/components/ActiveUser.vue'
     import UserResource from './components/UserResource'
     import UserLocation from './components/UserLocation'
     import WechatFans from './components/WechatFans'
@@ -26,10 +26,14 @@
         name: 'insight',
         data: () => {
             return {
-
+                insightData: {}
             }
         },
         mounted() {
+            this.$http.get('/api/Insight/getAllInsight')
+            .then((res) => {
+                this.insightData = res.data
+            })
             
         },
         methods: {
@@ -51,7 +55,6 @@
         height:360px;
         padding: 30px 30px 0 30px;
         background: #fff;
-
     }
 </style>
 

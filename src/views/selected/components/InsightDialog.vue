@@ -11,7 +11,7 @@
     </div>
 </template>
 <script>
-    import ActiveUser from './ActiveUser.vue'
+    import ActiveUser from '@/components/ActiveUser.vue'
     export default {
         name: 'edit-dialog',
         components: {ActiveUser},
@@ -42,6 +42,9 @@
                 })
                 .then((res) => {
                     this.insightData = res.data
+                })
+                .catch((res) => {
+                    this.insightData = null
                 })
             }
         },

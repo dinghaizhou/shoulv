@@ -32,6 +32,9 @@
 </template>
 <script>
     import FilterCheckbox from "@/components/FilterCheckbox"
+    import { mapState } from 'vuex'
+
+
     export default {
         name: 'export-package',
         components: {FilterCheckbox},
@@ -42,9 +45,27 @@
             currentRow: {
                 type: Object,
                 default: function() {
-                    return {}
+                    return {
+
+                    }
+                }
+            },
+            info: {
+                type: Object,
+                default: function() {
+                    return {
+
+                    }
                 }
             }
+        },
+        computed: {
+            ...mapState({
+                filterMode: state => state.user.filterMode,
+                filters: state => state.user.filters,
+                filterResult: state => state.user.filterResult,
+                tagId: state => state.user.tagId,
+            })
         },
         data: () => {
             return {
@@ -70,7 +91,54 @@
                 this.isAPI = !value
             },
             exportOut() {
-                window.open('api/Crowdchoose/export?id=' + this.currentRow.id, "_self")
+                if(this.$route.path == '/user') {
+                    if(this.filterMode == 'custom') {
+                        if(!this.filters) {
+                            this.$message.warning('请先筛选出特定人群，再导出')
+                            return
+                        }
+                        if(this.filterResult.searchTotal == 0) {
+                            this.$message.warning('筛选人群数量为零，请重新筛选')
+                            return
+                        }
+                        this.$http.post('/api/Consumer/exportSearchCrowd', {
+                            ...this.filters
+                        },{
+                        responseType: 'blob'
+                        })
+                        .then((res) => {
+                            this.$emit('update:visiable', false)
+                        })
+                        .catch((res) => {
+                            console.log(res)
+                        })
+                        
+                    } else {
+                        if(!this.tagId) {
+                            this.$message.warning('请先选择人群标签，再导出')
+                            return
+                        }
+                        if(this.filterResult.searchTotal == 0) {
+                            this.$message.warning('筛选人群数量为零，请重新筛选')
+                            return
+                        }
+
+                        this.$http.post('/api/Consumer/exportSearchCrowd', {
+                            id: this.tagId 
+                        },{
+                            responseType: 'blob'
+                        })
+                        .then((res) => {
+                            this.$emit('update:visiable', false)
+                        })
+                        .catch((res) => {
+                        })
+                    }
+                }
+                else {
+                    window.open('api/Crowdchoose/export?id=' + this.currentRow.id, "_self")
+                }
+
             }
         },
         

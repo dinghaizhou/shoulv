@@ -11,6 +11,15 @@
     export default {
         name: 'user-location',
         components: {},
+        props: {
+            insightData: {
+                default: function() {
+                    return {
+                        
+                    }
+                }
+            }
+        },
         data: () => {
             return {
             }
@@ -18,14 +27,23 @@
         methods: {
             
         },
+        watch: {
+            insightData: function() {
+                this.drawTable()
+            }
+        },
         mounted() {
             this.myChart = this.$echarts.init(document.getElementById('userLocationMap'))
-            // this.screenWidth = window.screen.width 
             this.screenWidth = document.body.offsetWidth
-            this.drawTable()
         },
         methods: {
             drawTable() {
+                var data = this.insightData.province.map((item) => {
+                    return {
+                        name: item.province,
+                        value: item.percent
+                    }
+                })
                 let orient,right,left;
                 if(this.screenWidth <= 1440) {
                     orient = 'horizontal'
@@ -51,7 +69,6 @@
                         formatter: (params) => {
                             console.log(params)
                             return  '省份：   ' + params.name + '</br>' +
-                                    '人数：   ' + params.data.people + '</br>' + 
                                     '占比：   ' + params.data.value + '%'
                         }
                     },
@@ -98,42 +115,43 @@
                                 itemStyle: {
                                 }
                             },
-                            data:[
-                                {name: '北京',value: Math.round(Math.random()*100),people: '33333'},
-                                {name: '天津',value: Math.round(Math.random()*100),people: '31233'},
-                                {name: '上海',value: Math.round(Math.random()*100),people: '33323'},
-                                {name: '重庆',value: Math.round(Math.random()*100),people: '434333'},
-                                {name: '河北',value: Math.round(Math.random()*100),people: '323433'},
-                                {name: '河南',value: Math.round(Math.random()*100)},
-                                {name: '云南',value: Math.round(Math.random()*100)},
-                                {name: '辽宁',value: Math.round(Math.random()*100)},
-                                {name: '黑龙江',value: Math.round(Math.random()*100)},
-                                {name: '湖南',value: Math.round(Math.random()*100)},
-                                {name: '安徽',value: Math.round(Math.random()*100)},
-                                {name: '山东',value: Math.round(Math.random()*100)},
-                                {name: '新疆',value: Math.round(Math.random()*100)},
-                                {name: '江苏',value: Math.round(Math.random()*100)},
-                                {name: '浙江',value: Math.round(Math.random()*100)},
-                                {name: '江西',value: Math.round(Math.random()*100)},
-                                {name: '湖北',value: Math.round(Math.random()*100)},
-                                {name: '广西',value: Math.round(Math.random()*100)},
-                                {name: '甘肃',value: Math.round(Math.random()*100)},
-                                {name: '山西',value: Math.round(Math.random()*100)},
-                                {name: '内蒙古',value: Math.round(Math.random()*100)},
-                                {name: '陕西',value: Math.round(Math.random()*100)},
-                                {name: '吉林',value: Math.round(Math.random()*100)},
-                                {name: '福建',value: Math.round(Math.random()*100)},
-                                {name: '贵州',value: Math.round(Math.random()*100)},
-                                {name: '广东',value: Math.round(Math.random()*100)},
-                                {name: '青海',value: Math.round(Math.random()*100)},
-                                {name: '西藏',value: Math.round(Math.random()*100)},
-                                {name: '四川',value: Math.round(Math.random()*100)},
-                                {name: '宁夏',value: Math.round(Math.random()*100)},
-                                {name: '海南',value: Math.round(Math.random()*100)},
-                                {name: '台湾',value: Math.round(Math.random()*100)},
-                                {name: '香港',value: Math.round(Math.random()*100)},
-                                {name: '澳门',value: Math.round(Math.random()*100)}
-                            ]
+                            data,
+                            nameMap: {
+                                 '北京': '北京市',
+                                 '天津': '天津市',
+                                 '上海': '上海市',
+                                 '重庆': '重庆市',
+                                 '河北': '河北省',
+                                 '河南': '河南省',
+                                 '云南': '云南省',
+                                 '辽宁': '辽宁省',
+                                 '黑龙江': '黑龙江省',
+                                 '湖南': '湖南省',
+                                 '安徽': '安徽省',
+                                 '山东': '山东省',
+                                 '新疆': '新疆维吾尔自治区',
+                                 '江苏': '江苏省',
+                                 '浙江': '浙江省',
+                                 '江西': '江西省',
+                                 '湖北': '湖北省',
+                                 '广西': '广西壮族自治区',
+                                 '甘肃': '甘肃省',
+                                 '山西': '山西省',
+                                 '内蒙古': '内蒙古自治区',
+                                 '陕西': '陕西省',
+                                 '吉林': '吉林省',
+                                 '福建': '福建省',
+                                 '贵州': '贵州省',
+                                 '广东': '广东省',
+                                 '青海': '青海省',
+                                 '西藏': '西藏自治区',
+                                 '四川': '四川省',
+                                 '宁夏': '宁夏回族自治区',
+                                 '海南': '海南省',
+                                 '台湾': '台湾省',
+                                 '香港': '香港',
+                                 '澳门': '澳门'
+                            }
                         },
                     ]
                 }
