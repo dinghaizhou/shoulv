@@ -81,7 +81,7 @@
         <add-dialog @addConfirm="addConfirm" :visiable.sync="addVisiable"></add-dialog>
 
         <edit-dialog @updateTable="updateTable" :currentRow="currentRow" :visiable.sync="editVisiable"></edit-dialog>
-        <insight-dialog :visiable.sync="insightVisiable" :insightData="insightData"></insight-dialog>
+        <insight-dialog :visiable.sync="insightVisiable" :currentRow="currentRow"></insight-dialog>
         <export-package :currentRow="currentRow"  :visiable.sync="packageDialogVisiable"></export-package>
         <delete-dialog :currentRow="currentRow" @updateTable="updateTable"  :visiable.sync="deleteVisiable"></delete-dialog>
   </div>
@@ -138,20 +138,9 @@
             add() {
 
             },
-            insight() {
+            insight(row) {
                 this.insightVisiable = true
-                this.insightData = {
-                    PC: Math.random()*100,
-                    Moblie: 25,
-                    Wechat: 50,
-                    Male: 75,
-                    Female: 25,
-                    Online: 25,
-                    Outline: 75,
-                    data: {
-
-                    }
-                }
+                this.currentRow = row
             },
             edit(row) {
                 this.editVisiable = true
@@ -166,6 +155,8 @@
                 this.currentRow = row
             },
             addConfirm(data) {
+
+                this.getList()
                 this.checkVisiable = true
                 this.addVisiable = false
                 this.addData = data

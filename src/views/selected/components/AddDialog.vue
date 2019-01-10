@@ -28,7 +28,7 @@
                 <span style="color:#1790ff;margin-left:10px;cursor:pointer">下载模版示例</span>
             </div>
             <div class="upload" v-if="show_button">
-               <input @change="uploadFile" ref="upload" type="file" id="packageUpload" style="display: none;">
+               <input accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" @change="uploadFile" ref="upload" type="file" id="packageUpload" style="display: none;">
                <label for="packageUpload"> <span style="margin-right:10px;font-size: 14px;">+</span> 点击上传人群包</label>
             </div>
             <div v-else>
@@ -92,11 +92,7 @@
         },
         methods: {
             handleClose() {
-                this.is_uploading = false
-                this.process = '0'
-                this.file = null
-                this.show_button = true
-                this.filename = ''
+                this.reset()
                 this.$emit('update:visiable', false)
             },
             uploadFile(e) {
@@ -154,21 +150,23 @@
                 })
                 .then((res) => {
                     this.$emit('addConfirm', res.data)
-                    this.process = '0'
-                    this.show_button = true
-                    this.file = null
-                    this.filename = ''
+                    this.reset()
                 })
             },
             deletefile() {
                 if(this.is_uploading) {
                     this.cancel()
                 } else {
-                    this.process = '0'
-                    this.file = null
-                    this.show_button = true
-                    this.filename = ''
+                   this.reset()
                 }
+            },
+            reset() {
+                this.process = '0'
+                this.file = null
+                this.show_button = true
+                this.filename = ''
+                this.title = ''
+                this.detail = ''
             }
         },
     }

@@ -7,12 +7,11 @@
             width="86%"
             :before-close="handleClose">
             <active-user :insightData="insightData"></active-user>
-
         </el-dialog>
     </div>
 </template>
 <script>
-    import ActiveUser from '@/components/ActiveUser.vue'
+    import ActiveUser from './ActiveUser.vue'
     export default {
         name: 'edit-dialog',
         components: {ActiveUser},
@@ -20,7 +19,7 @@
             visiable: {
                 default: false,
             },
-            insightData: {
+            currentRow: {
                 default: function() {
                     return {}
                 }
@@ -28,10 +27,23 @@
         },
         data: () => {
             return {
-                
+                insightData: {}
             }
         },
         mounted() {
+            
+        },
+        watch: {
+            currentRow() {
+                this.$http.get('/api/Insight/getInsightById', {
+                    params:{
+                        id: this.currentRow.id
+                    }
+                })
+                .then((res) => {
+                    this.insightData = res.data
+                })
+            }
         },
         methods: {
             handleClose() {

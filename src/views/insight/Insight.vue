@@ -2,7 +2,7 @@
     <div class="insight">
         <div class="menu-title">{{this.$route.meta.title}}</div>
         <div class="innerbox" style="margin-bottom: 20px;">
-            <active-user></active-user>
+            <!-- <active-user></active-user> -->
         </div>
         <div class="flex-b">
             <div class="bottom-items">
@@ -18,7 +18,7 @@
     </div>
 </template>
 <script>
-    import ActiveUser from '@/components/ActiveUser.vue'
+    import ActiveUser from './components/ActiveUser.vue'
     import UserResource from './components/UserResource'
     import UserLocation from './components/UserLocation'
     import WechatFans from './components/WechatFans'

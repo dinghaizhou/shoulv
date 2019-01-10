@@ -34,7 +34,6 @@
         },
         data: () => {
             return {
-                
             }
         },
         mounted() {
@@ -45,6 +44,7 @@
             },
             confirm() {
                 this.$emit('checkConfirm')
+                this.$message.success('添加成功')
             }
         },
     }
@@ -59,8 +59,6 @@
                 font-weight: bold;
             }
         }
-        
     }
-
 </style>
 

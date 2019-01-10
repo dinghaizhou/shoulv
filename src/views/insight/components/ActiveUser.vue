@@ -2,23 +2,24 @@
     <div class="active-user">
         <div>
             <div class="title_1">活跃用户数据</div>
-            <div style="width:100%;height:300px;" id="activeUserLine" text></div>
+            <div style="width:100%;height:300px;" id="activeUser" v-show="tableShow"></div>
+            <div v-show="!tableShow" style="width:100%;height:300px;line-height:300px;text-align:center;"> 暂无数据</div>
         </div>
         
         <div style="width:100%;display:flex;">
-            <div class="flex-a" style="width:44%;border-right: 1px solid #eee">
-                <annular-percent name="PC" :percent="insightData.PC" color="#5490d6"></annular-percent>
-                <annular-percent name="Moblie" :percent="insightData.Moblie" color="#e07d70"></annular-percent>
-                <annular-percent name="Wechat" :percent="insightData.Wechat" color="#5cc8a6"></annular-percent>
+            <div class="flex-a" style="width:60%;border-right: 1px solid #eee">
+                <annular-percent name="PC_" type="PC" :percent="insightData.type[0].PC" color="#5490d6"></annular-percent>
+                <annular-percent name="Moblie_" type="Moblie" :percent="insightData.type[0].Mobile" color="#e07d70"></annular-percent>
+                <annular-percent name="WeChat_" type="WeChat" :percent="insightData.type[0].WeChat" color="#5cc8a6"></annular-percent>
             </div>
-            <div class="flex-a" style="width: 28%;border-right: 1px solid #eee">
-                <annular-percent name="Male" :percent="insightData.Male" color="#906f65"></annular-percent>
-                <annular-percent name="Female" :percent="insightData.Female" color="#dc6993"></annular-percent>
+            <div class="flex-a" style="width: 40%;border-right: 1px solid #eee">
+                <annular-percent name="Male_" type="Male" :percent="insightData.type[0].boy" color="#906f65"></annular-percent>
+                <annular-percent name="Female_" type="Female" :percent="insightData.type[0].girl" color="#dc6993"></annular-percent>
             </div>
-            <div class="flex-a" style="width: 28;">
+            <!-- <div class="flex-a" style="width: 28;">
                 <annular-percent name="Online" :percent="insightData.Online" color="#61c2b9"></annular-percent>
                 <annular-percent name="Outline" :percent="insightData.Outline" color="#a998c9"></annular-percent>
-            </div>
+            </div> -->
 
         </div>
     </div>
@@ -38,29 +39,36 @@
 
         data: () => {
             return {
+                tableShow: true
             }
         },
         watch: {
-            insightData () {
-                console.log(33)
-                this.drawTable()
+            insightData: function() {
+                console.log(this.insightData.type[0].PC)
+                console.log(this.insightData)
+                if(this.insightData.everyDay.length > 0) {
+                    this.tableShow = true
+                    this.drawTable()
+                } else {
+                    this.tableShow = false
+                }
             }
 
         },
         mounted() {
-            this.myChart = this.$echarts.init(document.getElementById('activeUserLine'))
-            this.drawTable()
-            console.log(this.insightData)
+
+            this.myChart = this.$echarts.init(document.getElementById('activeUser'))
         },
         methods: {
             drawTable() {
-                var xData = []
-                var data = []
-                for (var i = 1; i <= 30; i ++) {
-                    xData.push('2018-12-' + i)
-                    data.push(1000000 + Math.random()*9000000)
-                }
-
+                this.myChart = this.$echarts.init(document.getElementById('activeUser'))
+                var Totaldata =  this.insightData.everyDay
+                var xData = this.insightData.everyDay.map((item) => {
+                    return item.time
+                })
+                var data = this.insightData.everyDay.map((item) => {
+                    return item.total
+                })
                 let option = {
                     xAxis: {
                         // type: 'category',
@@ -94,11 +102,11 @@
                         splitLine: {
                             show: false
                         },
-                        min: function(value) {
-                            return Math.floor((value.min)/1000000)*1000000 - 1000000;
-                        },
+                        // min: function(value) {
+                        //     return Math.floor((value.min)/1000000)*1000000 - 1000000;
+                        // },
                         // min: '500000',
-                        splitNumber: 2,
+                        // splitNumber: 2,
                         axisLine: {
                             show: true,
                             lineStyle: {
@@ -135,6 +143,7 @@
                         },
                     }]
                 };
+                console.log(this.myChart)
                 this.myChart.setOption(option)
             }
         }

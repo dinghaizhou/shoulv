@@ -90,6 +90,9 @@
                     this.$message.success('添加成功')
                     this.tagNames = ''
                 })
+                .catch((res) => {
+                    console.log(res)
+                })
 
             },
             drawPie() {

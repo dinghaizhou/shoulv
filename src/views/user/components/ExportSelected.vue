@@ -91,6 +91,9 @@
                         this.title = ''
                         this.detail = ''
                     })
+                    .catch((res) => {
+                        console.log(res)
+                    })
                 } else {
                     if(!this.tagId) {
                         this.$message.warning('请先选择人群标签，再导出')
@@ -118,6 +121,9 @@
                         this.$emit('update:visiable', false)
                         this.title = ''
                         this.detail = ''
+                    })
+                    .catch((res) => {
+                        console.log(res)
                     })
                 }
             }

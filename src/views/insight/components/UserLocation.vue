@@ -28,17 +28,14 @@
             drawTable() {
                 let orient,right,left;
                 if(this.screenWidth <= 1440) {
-                    console.log(1)
                     orient = 'horizontal'
                     right = '0%'
                     left = '0%'
                 } else if (this.screenWidth <= 1680) {
-                    console.log(2)
                     orient = 'horizontal'
                     right = '15%'
                     left = '0%'
                 } else if(this.screenWidth <= 1920) {
-                    console.log(3)
                     orient = 'vertical'
                     right = '10%'
                     left = '10%'

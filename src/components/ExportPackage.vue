@@ -70,8 +70,7 @@
                 this.isAPI = !value
             },
             exportOut() {
-                
-                window.open('api/Crowdchoose/export?id=' + this.currentRow.id)
+                window.open('api/Crowdchoose/export?id=' + this.currentRow.id, "_self")
             }
         },
         
