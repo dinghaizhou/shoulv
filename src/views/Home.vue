@@ -3,11 +3,11 @@
         <el-row class="panel-top">
             <el-col :span="18">
                 <img class='pull-left logo' src="../assets/images/logo.png">
-                <div class='pull-left'>爱点击CDP</div>
+                <div class='pull-left' style="font-size:14px;margin-left:10px;font-weight:600;">爱点击CDP</div>
             </el-col>
             <el-col :span="6" class="logout">
                 <a href="javascript:;" @click='logout' class="pull-right">退出</a>			
-                <span class="pull-right">欢迎, haizhou</span>
+                <span class="pull-right">欢迎,    </span>
             </el-col>
         </el-row>
         <div class="panel-menu">
