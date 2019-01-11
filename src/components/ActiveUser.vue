@@ -70,7 +70,7 @@
                         // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
                         data: xData,
                         axisLabel: {
-                            interval: 15,
+                            interval: 4,
                             showMaxLabel: true,
                             showMinLabel: true,
                             color: '#595a5b'
@@ -117,6 +117,7 @@
                     tooltip: {
                         // trigger: 'axis',
                         show: true,
+                        formatter: '{b}: {c}人'
                     },
                     dataZoom: [{
                         type: 'inside',
@@ -126,8 +127,10 @@
                         data,
                         type: 'line',
                         symbol: 'circle',
+                        symbolSize: 8,
+
                         // showSymbol: false,
-                        // hoverAnimation: false,
+                        hoverAnimation: false,
                         itemStyle: {
                             color: '#0486fe',
                             borderWidth: 1.5

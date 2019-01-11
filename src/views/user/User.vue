@@ -25,7 +25,7 @@
                 <el-table-column prop="sourcetype" label="用户来源"></el-table-column>
                 <el-table-column prop="cost" label="消费总额"></el-table-column>
                 <!-- <el-table-column prop="tags" label="相关标签"></el-table-column> -->
-                <el-table-column prop="brand" width="80" label="会员">
+                <el-table-column prop="brand" label="会员">
 
                 </el-table-column>
                 <el-table-column prop="sex" label="性别">

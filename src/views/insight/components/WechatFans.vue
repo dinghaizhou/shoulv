@@ -1,7 +1,7 @@
 <template>
     <div class="wechat-fans">
         <div class="title_1">微信公众号粉丝变化趋势</div>
-        <div class="total_fans">当前公众号粉丝：<span>123,123,123</span>  人</div>
+        <div class="total_fans">当前公众号粉丝：<span>0</span>  人</div>
         <div style="width:100%;height:270px;" id="wechatFansLine" text></div>
     </div>
 </template>
@@ -29,8 +29,8 @@
                 var data2 = []
                 for (var i = 0; i <= 30; i ++) {
                     xData.push('2018.12.' + i)
-                    data1.push(10000 + Math.random()*90000)
-                    data2.push(10000 + Math.random()*90000)
+                    // data1.push(10000 + Math.random()*90000)
+                    // data2.push(10000 + Math.random()*90000)
                 }
 
                 var option = {

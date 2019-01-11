@@ -35,8 +35,8 @@
                     grid: {
                         top: 20,
                         bottom: -10,
-                        left: 70,
-                        bottom: 0
+                        left: 90,
+                        right: 30
                     },
                     xAxis: {
                         type : 'value',
@@ -64,7 +64,7 @@
                             alignWithLabel: true
                         },
                         // splitLine: {show: false},
-                        data : [ '未分类', '微信盆友圈', '微信公众号', '微信微博', '线下']
+                        data : [ '其他', '线下门店', '营销活动', '首客首享App']
                     },
                     series : [
                         {
@@ -73,16 +73,15 @@
                             barWidth: '50%',
                             label: {
                                 show: true,
-                                position: [this.containerWidth - 100, '25%'],
+                                position: [this.containerWidth - 120, '25%'],
                                 color: '#595a5b'
 
                             },
                             data:[
-                                0.2, 
-                                0.44,
-                                0.08,
-                                0.47,
-                                0.18
+                                0, 
+                                0,
+                                0,
+                                0,
                             ],
                             itemStyle: {
                                 color: '#0486fe'

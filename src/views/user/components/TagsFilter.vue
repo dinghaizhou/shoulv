@@ -87,7 +87,6 @@
         },
         methods: {
             filterChange(res) {
-                console.log(res)
                 this.$store.commit('changePage', 1)
                 this.$store.dispatch('getFilterResultById', res)
             }
