@@ -6,7 +6,6 @@ import Vue from 'vue'
 axios.defaults.baseURL = ''
 axios.defaults.method = 'post'
 
-console.log(process.env)
 axios.defaults.errorHandler = function (message) {
 	Vue.prototype.$message({
 		type: 'warning',
@@ -44,8 +43,6 @@ axios.interceptors.response.use(
             }
             return response.data 
         }
-       
-
 	    if(response.config.loading)
             response.config.loading.loading = false
         var code = response.data.code

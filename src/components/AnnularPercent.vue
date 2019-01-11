@@ -7,7 +7,7 @@
     import echarts from 'echarts'
     export default {
         name: 'annular-percent',
-        props: ['name', 'color', 'percent', 'type'],
+        props: ['name', 'color', 'percent', 'type', ],
         components: {},
         data: () => {
             return {
@@ -16,7 +16,6 @@
         },
         watch: {
             'percent'() {
-                console.log(this.percent)
                 this.drawPercent()
             }
         },
@@ -52,7 +51,7 @@
                                 height: 30
                                 },
                             left: 'center',
-                            top: '40'
+                            top: '50'
                             },
                             {
                             type: 'text',

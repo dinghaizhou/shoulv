@@ -18,7 +18,7 @@
                 <filterCheckbox :lists="list3" v-model="frequencyKind"/>
             </div>
         </div>
-         <div class="section clearfix">
+         <div class="section clearfix" v-if="!actionKind">
             <div class="section-title">客户来源：</div>
             <div class="section-body">
                 <filterCheckbox :lists="list4" v-model="sourceKind"/>
@@ -112,6 +112,11 @@
             .catch((res) => {
                 this.$message.warning('网络错误')
             })
+        },
+        watch: {
+            'actionKind'(value) {
+                this.sourceKind = ''
+            }
         },
         methods: {
             search() {

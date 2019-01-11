@@ -43,7 +43,6 @@
         },
         watch: {
             insightData: function() {
-                console.log(this.insightData)
                 if(this.insightData && this.insightData.everyDay.length > 0) {
                     this.tableShow = true
                     this.drawTable()
@@ -138,7 +137,6 @@
                         },
                     }]
                 };
-                console.log(this.myChart)
                 this.myChart.setOption(option)
             }
         }

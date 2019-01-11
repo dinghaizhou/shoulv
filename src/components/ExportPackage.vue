@@ -25,7 +25,7 @@
             </div>
             <div style="margin-top:30px;">
                 <el-button class="button-mini" type="primary" style="min-width:98px;" @click="exportOut">导出</el-button>
-                <span style='margin-left:20px;color:#9fa1a7;font-size:12px;line-height:12px;vertical-align:bottom'>人群数量： {{currentRow.number}}人</span>
+                <span style='margin-left:20px;color:#9fa1a7;font-size:12px;line-height:12px;vertical-align:bottom'>人群数量： {{this.$route.path == '/user' ? this.filterResult.searchTotal : currentRow.number  }}人</span>
             </div>
         </el-dialog>
     </div>

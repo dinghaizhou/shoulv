@@ -25,10 +25,17 @@
                 <el-table-column prop="sourcetype" label="用户来源"></el-table-column>
                 <el-table-column prop="cost" label="消费总额"></el-table-column>
                 <!-- <el-table-column prop="tags" label="相关标签"></el-table-column> -->
-                <el-table-column prop="isVIP" width="80" label="会员"></el-table-column>
-                <el-table-column prop="sex" label="性别"></el-table-column>
-                <el-table-column prop="age" label="年龄"></el-table-column>
-                <el-table-column prop="brithday" label="生日"></el-table-column>
+                <el-table-column prop="brand" width="80" label="会员">
+
+                </el-table-column>
+                <el-table-column prop="sex" label="性别">
+                    <!-- <template slot-scope="scope">
+                        {{sex[scope.row.sex]}}
+                    </template> -->
+                </el-table-column>
+
+                <el-table-column prop="year" label="年龄"></el-table-column>
+                <el-table-column prop="birthday" label="生日"></el-table-column>
                 <el-table-column prop="phone" label="手机"></el-table-column>
                 <div slot="empty">
                     <img src="@/assets/images/no-vip.png" style="margin-top: 90px;" alt="">
@@ -59,6 +66,7 @@
         components: {CustomFilter, FilterResult, TagsFilter},
         data: () => {
             return {
+                sex: ['男', '女', '未知']
             }
         },
         computed: {
@@ -71,7 +79,6 @@
             
         },
         mounted() {
-
         },
         updated() {
         },

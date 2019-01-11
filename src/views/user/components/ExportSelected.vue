@@ -95,6 +95,8 @@
                         this.detail = ''
                     })
                     .catch((res) => {
+                        console.log(res)
+                        this.$message.success('导出失败')
                         this.$store.commit('changeLoading', false)
                     })
                 } else {
@@ -128,6 +130,7 @@
                         this.detail = ''
                     })
                     .catch((res) => {
+                        this.$message.success('导出失败')
                         this.$store.commit('changeLoading', false)
                     })
                 }

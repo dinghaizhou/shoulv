@@ -12,7 +12,7 @@
             v-model="tagNames"
             ></el-input>
             <el-button class="button-max m-t-10" @click="saveTags">保存</el-button>
-            <el-button class="button-max m-t-10">删除</el-button>
+            <el-button class="button-max m-t-10" @click="deleteTags">删除</el-button>
         </div>
         <div style="margin-top: 22px;">
             <el-button class="button-mini" @click="exportToPackage" type="primary" >导出人群包</el-button>
@@ -83,13 +83,13 @@
                     this.$message.warning('请输入标签名')
                     return
                 }
-
                 this.$store.commit('changeLoading', true)
                 this.$http.post('/api/Consumer/setTag',{
                     info: JSON.stringify(this.filters),
                     name: this.tagNames
                 })
                 .then((res) => {
+                    this.$store.commit('changeLoading', false)
                     this.$message.success('添加成功')
                     this.tagNames = ''
                 })
@@ -98,6 +98,9 @@
                     this.$store.commit('changeLoading', false)
                 })
 
+            },
+            deleteTags() {
+                this.tagNames = ''
             },
             drawPie() {
                 let myChart = this.$echarts.init(document.getElementById('filterResult'))
