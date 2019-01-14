@@ -2,8 +2,8 @@
     <div class="filter-result">
         <div style="line-height: 20px;font-size: 14px;">筛选结果</div>
         <div style="width:100%;height:170px;margin: 8px auto 0 auto;" id="filterResult"></div>
-        <div style="line-height: 36px;font-size: 14px;" v-if="filterMode == 'custom'">
-            <span >添加标签</span>
+        <div style="line-height: 36px;font-size: 14px;">
+            <span> {{filterMode == 'custom' ? '添加' : '修改'}}标签</span>
             <span style="color:#9ea1a6;font-size:12px;margin: 0 20px 0 8px">(选填)</span>
             <el-input 
             maxlength="10"
@@ -52,11 +52,12 @@
         },
         props:[],
         computed: {
-
             ...mapState({
                 filterMode: state => state.user.filterMode,
                 filters: state => state.user.filters,
                 filterResult: state => state.user.filterResult,
+                tagName: state => state.user.tagName,
+                tagId: state => state.user.tagId,
             })
         },
         mounted() {
@@ -65,7 +66,11 @@
         watch: {
             'filterResult': function() {
                 this.drawPie()
-            } 
+            },
+            'tagName': function(value) {
+                this.tagNames = value
+            }
+
         },
         methods: {
             exportToPackage() {
@@ -75,32 +80,81 @@
                 this.selectedDialogVisiable = true
             },
             saveTags() {
-                if(!this.filters) {
-                    this.$message.warning('请先筛选出特定人群再保存')
-                    return
+                if(this.filterMode == 'custom') {
+                    if(!this.filters) {
+                        this.$message.warning('请先筛选出特定人群再保存')
+                        return
+                    }
+                    if (!this.tagNames) {
+                        this.$message.warning('请输入标签名')
+                        return
+                    }
+                    this.$store.commit('changeLoading', true)
+                    this.$http.post('/api/Consumer/setTag',{
+                        info: JSON.stringify(this.filters),
+                        name: this.tagNames
+                    })
+                    .then((res) => {
+                        this.$store.commit('changeLoading', false)
+                        this.$message.success('添加成功')
+                        this.tagNames = ''
+                    })
+                    .catch((res) => {
+                        this.$message.success('保存失败')
+                        this.$store.commit('changeLoading', false)
+                    })
+                } else {
+                    if(!this.tagId) {
+                        this.$message.warning('请先选择标签再修改')
+                        return
+                    }
+                    if (!this.tagNames) {
+                        this.$message.warning('请输入标签名')
+                        return
+                    }
+                    this.$http.post('/api/Consumer/tagedit',{
+                        id: this.tagId,
+                        name: this.tagNames
+                    })
+                    .then(() => {
+                        this.$message.success('修改成功')
+                        // this.$store.commit('changeFilterResult', {rate:0, searchTotal:0})
+                        // this.$store.commit('changeTagId', '')
+                        this.$store.commit('changeTagName', this.tagNames)
+                        this.$store.dispatch('getTagsLists')
+                        return
+                    })
+                    .catch((res) => {
+                        if(!res.msg) {
+                            this.$message.warning('修改失败')
+                        }
+                    })
                 }
-                if (!this.tagNames) {
-                    this.$message.warning('请输入标签名')
-                    return
-                }
-                this.$store.commit('changeLoading', true)
-                this.$http.post('/api/Consumer/setTag',{
-                    info: JSON.stringify(this.filters),
-                    name: this.tagNames
-                })
-                .then((res) => {
-                    this.$store.commit('changeLoading', false)
-                    this.$message.success('添加成功')
-                    this.tagNames = ''
-                })
-                .catch((res) => {
-                    this.$message.warning('保存失败')
-                    this.$store.commit('changeLoading', false)
-                })
-
             },
             deleteTags() {
-                this.tagNames = ''
+                if(this.filterMode == 'custom') {
+                    this.tagNames = ''
+                } else {
+                    if(!this.tagId) {
+                        this.$message.warning('请先选择标签再删除')
+                        return
+                    } 
+                   
+                    this.$http.post('/api/Consumer/tagdel',{
+                        id: this.tagId
+                    })
+                    .then(() => {
+                        this.$message.success('删除成功')
+                        this.$store.commit('changeFilterResult', {rate:0, searchTotal:0})
+                        this.$store.commit('changeTagId', '')
+                        this.$store.commit('changeTagName', '')
+                        this.$store.dispatch('getTagsLists')
+                        return
+                    })
+                    .catch(() => {
+                        this.$message.warning('删除失败')
+                    })
+                }
             },
             drawPie() {
                 let myChart = this.$echarts.init(document.getElementById('filterResult'))

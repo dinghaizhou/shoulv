@@ -21,31 +21,31 @@
                     type="selection"
                     width="55">
                     </el-table-column>
-                    <el-table-column prop="name" label="人群名称"></el-table-column>
-                    <el-table-column prop="describe" label="人群描述"></el-table-column>
-                    <el-table-column prop="mode" label="创建方式"></el-table-column>
-                    <el-table-column prop="type" label="类型"></el-table-column>
-                    <el-table-column prop="number" label="包含人数"></el-table-column>
-                    <el-table-column prop="time" label="创建时间"></el-table-column>
-                    <el-table-column width='250' label="操作">
+                    <el-table-column align="center" prop="name" label="人群名称"></el-table-column>
+                    <el-table-column align="center" prop="describe" label="人群描述"></el-table-column>
+                    <el-table-column align="center" prop="mode" label="创建方式"></el-table-column>
+                    <el-table-column align="center" prop="type" label="类型"></el-table-column>
+                    <el-table-column align="center" prop="number" label="包含人数"></el-table-column>
+                    <el-table-column align="center" prop="time" label="创建时间"></el-table-column>
+                    <el-table-column align="center" width='250' label="操作">
                         <template slot-scope="scope">
                             <el-button
                             @click="edit(scope.row)"
                             type="text"
-                            style="color:#4ebd9f;margin:0 30px 0 0;"
+                            style="color:#1989FA;margin:0 30px 0 0;"
                             size="small">
                             编辑
                             </el-button>
                              <el-button
                             @click="insight(scope.row)"
-                            style="color:#de9f1f;margin:0 30px 0 0;"
+                            style="color:#1989FA;margin:0 30px 0 0;"
                             type="text"
                             size="small">
                             洞察
                             </el-button>
                             <el-button
                             @click="exportPackage(scope.row)"
-                            style="color:#1f93ff;margin:0 30px 0 0;"
+                            style="color:#1989FA;margin:0 30px 0 0;"
                             type="text"
                             size="small">
                             导出

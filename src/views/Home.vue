@@ -1,5 +1,5 @@
 <template>
-    <div class="panel">
+    <div class="panel clearfix">
         <el-row class="panel-top">
             <el-col :span="18">
                 <img class='pull-left logo' src="../assets/images/logo.png">

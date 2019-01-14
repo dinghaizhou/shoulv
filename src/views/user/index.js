@@ -7,7 +7,10 @@ export default {
         page: 1,
         pageSize: 10,
         loading_search: false,
-        tagId: ''
+        loading_table: false,
+        tagId: '',
+        tagName: '',
+        tagLists: []
     },
     mutations: {
         changeFilterMode(state, value) {
@@ -28,8 +31,17 @@ export default {
         changeLoading(state,value) {
             state.loading_search = value
         },
+        changeLoadingTable(state,value) {
+            state.loading_table = value
+        },
         changeTagId(state,value) {
             state.tagId = value
+        },
+        changeTagName(state,value) {
+            state.tagName = value
+        },
+        changeTagLists(state, value) {
+            state.tagLists = value
         }
     },
     actions: {
@@ -46,7 +58,10 @@ export default {
                 store.commit('changeFilters', filters)
             })
         },
-        getFilterResultById(store, id) {
+        getFilterResultById(store, res) {
+            var id = res.id
+            var name = res.name
+
             store.commit('changeLoading', true)
             http.post("/api/Consumer/getUserListByTagId", {
                 id,
@@ -57,10 +72,11 @@ export default {
                 store.commit('changeLoading', false)
                 store.commit('changeFilterResult', res.data)
                 store.commit('changeTagId', id)
+                store.commit('changeTagName', name)
             })
         },
         getFilterResultByPage(store) {
-            store.commit('changeLoading', true)
+            store.commit('changeLoadingTable', true)
             if(store.state.filterMode == 'custom') {
                 http.post("/api/Consumer/search", {
                     ...store.state.filters,
@@ -68,7 +84,7 @@ export default {
                     pageSize: store.state.pageSize
                 })
                 .then((res) => {
-                    store.commit('changeLoading', false)
+                    store.commit('changeLoadingTable', false)
                     store.commit('changeFilterResult', res.data)
                 })
             } else {
@@ -78,12 +94,24 @@ export default {
                     pageSize: store.state.pageSize
                 })
                 .then((res) => {
-                    store.commit('changeLoadingChange', false)
+                    store.commit('changeLoadingTable', false)
                     store.commit('changeFilterResult', res.data)
                 })
             }
-
-
+        },
+        getTagsLists(store) {
+            http.get('/api/Consumer/getTagsList', {loading: this})
+            .then((res) => {
+                var origin_lists = res.data
+                var lists = []
+                for (var i = 0; i < origin_lists.length; i ++) {
+                    var j = Math.floor(i/30)
+                    if(!lists[j]) lists[j] = []
+                    lists[j].push(origin_lists[i])
+                }
+                console.log(lists)
+                store.commit('changeTagLists', lists)
+            })
         }
     },
     getters: {

@@ -2,9 +2,9 @@
     <div class="tags-filter clearfix" v-loading="loading">
         <div class="title_1">自定义标签</div>
         <!-- <filter-checkbox :lists="lists"> </filter-checkbox> -->
-        <swiper1 v-if="lists.length > 0" :options="swiperOption">
+        <swiper1 v-if="tagLists.length > 0" :options="swiperOption">
             <!-- slides -->
-            <swiper-slide1 v-for="item in lists" :key="item.id">
+            <swiper-slide1 v-for="item in tagLists" :key="item.id">
                 <filter-checkbox bottom="16px" v-model="tags" :lists="item" @change="filterChange"> </filter-checkbox>
             </swiper-slide1>
             <!-- Optional controls -->
@@ -23,6 +23,8 @@
 <script>
     import filterCheckbox from '@/components/FilterCheckbox'
     import { swiper, swiperSlide } from 'vue-awesome-swiper' 
+    import { mapState } from 'vuex'
+
     export default {
         name: 'tags-filter',
         components: {filterCheckbox, swiper1: swiper, swiperSlide1: swiperSlide},
@@ -72,18 +74,17 @@
                 }
             }
         },
-        mounted() {
-            this.$http.get('/api/Consumer/getTagsList', {loading: this})
-            .then((res) => {
-                var origin_lists = res.data
-                var lists = []
-                for (var i = 0; i < origin_lists.length; i ++) {
-                    var j = Math.floor(i/30)
-                    if(!lists[j]) lists[j] = []
-                    lists[j].push(origin_lists[i])
-                }
-                this.lists = lists
+        computed: {
+            ...mapState({
+                tagLists: state => state.user.tagLists,
+                tagId: state => state.user.tagId,
             })
+        },
+        watch: {
+            
+        },
+        mounted() {
+            this.$store.dispatch('getTagsLists')
         },
         methods: {
             filterChange(res) {
@@ -96,11 +97,11 @@
 <style lang="scss" scoped>
     .tags-filter {
         .swiper-slide{
-            padding: 20px 20px 5px 35px;
+            padding: 20px 35px 5px 30px;
             min-height:250px;
         }
         .swiper-button-prev{
-            left: 5;
+            left: 5px;
             opacity: 0.5;
             width: 20px;
             height: 20px;
@@ -111,7 +112,7 @@
             width: 20px;
             height: 20px;
             background-size: 20px 20px;
-            right: 0;
+            right: 20px;
         }
         .swiper-pagination {
             bottom: -5px;

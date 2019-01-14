@@ -7,7 +7,7 @@
             width="30%"
             :before-close="handleClose">
             <el-input maxlength="10" placeholder="请输入人群标题" v-model="title" style="margin-top:15px;">
-                <span slot="suffix" style="line-height:34px;">{{title.length}}/10</span>
+                <span slot="suffix" style="line-height:34px; font-size:14px;color:#DCDFE6">{{title.length}}/10</span>
             </el-input>
             <div style="position:relative">
                 <el-input
@@ -88,10 +88,11 @@
     .edit-dialog {
         .text-length {
             line-height:34px;
-            color: #c0c4cc;
             position: absolute;
             bottom: 0;
-            right: 10px;
+            right: 5px;
+            font-size:14px;
+            color:#DCDFE6
         }
 
     }

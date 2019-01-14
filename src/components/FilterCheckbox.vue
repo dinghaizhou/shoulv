@@ -2,7 +2,7 @@
     <div class="filter-checkbox clearfix">
         <ul>
             <li :class="{'active': item.id == value }" v-for="(item) in lists" :key="item.id"
-            @click="select(item.id)"
+            @click="select(item)"
             :style="{ marginBottom: bottom, marginRight: right }">{{item.name}}</li>
         </ul>
     </div>
@@ -33,9 +33,9 @@
             this.result = this.value
         },
         methods: {
-            select(id) {
-                this.$emit('input', id)
-                this.$emit('change', id)
+            select(item) {
+                this.$emit('input', item.id)
+                this.$emit('change', item)
             }
         }
     }

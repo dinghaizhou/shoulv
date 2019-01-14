@@ -55,6 +55,7 @@
         height:360px;
         padding: 30px 30px 0 30px;
         background: #fff;
+        box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.04)
     }
 </style>
 

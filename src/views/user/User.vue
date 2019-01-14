@@ -18,25 +18,25 @@
         </div>
         <div class="innerbox">
             <el-table
+            v-loading="loading_table"
             :data="filterResult.list"
-            style="width: 100%"
             header-row-class-name="table-header">
-                <el-table-column prop="userid" width="100" label="用户ID"></el-table-column>
-                <el-table-column prop="sourcetype" label="用户来源"></el-table-column>
-                <el-table-column prop="cost" label="消费总额"></el-table-column>
+                <el-table-column align="center" prop="userid" width="100" label="用户ID"></el-table-column>
+                <el-table-column align="center" prop="sourcetype" label="用户来源"></el-table-column>
+                <el-table-column align="center" prop="cost" label="消费总额"></el-table-column>
                 <!-- <el-table-column prop="tags" label="相关标签"></el-table-column> -->
-                <el-table-column prop="brand" label="会员">
+                <el-table-column align="center" prop="brand" label="会员">
 
                 </el-table-column>
-                <el-table-column prop="sex" label="性别">
+                <el-table-column align="center" prop="sex" label="性别">
                     <!-- <template slot-scope="scope">
                         {{sex[scope.row.sex]}}
                     </template> -->
                 </el-table-column>
 
-                <el-table-column prop="year" label="年龄"></el-table-column>
-                <el-table-column prop="birthday" label="生日"></el-table-column>
-                <el-table-column prop="phone" label="手机"></el-table-column>
+                <el-table-column align="center" prop="year" label="年龄"></el-table-column>
+                <el-table-column align="center" prop="birthday" label="生日"></el-table-column>
+                <el-table-column align="center" prop="phone" label="手机"></el-table-column>
                 <div slot="empty">
                     <img src="@/assets/images/no-vip.png" style="margin-top: 90px;" alt="">
                     <div style="margin:25px 0 90px;font-size: 14px;color: #575759;">还未创建会员列表</div>
@@ -75,10 +75,16 @@
                 filters: state => state.user.filters,
                 filterResult: state => state.user.filterResult,
                 loading_search: state => state.user.loading_search,
+                loading_table: state => state.user.loading_table
             })
             
         },
         mounted() {
+            this.$store.commit('changeFilterMode', 'custom')
+            this.$store.commit('changeFilterResult', {rate:0, searchTotal:0})
+            this.$store.commit('changeTagId', '')
+            this.$store.commit('changeTagName', '')
+            this.$store.commit('changeFilters', null)
         },
         updated() {
         },
@@ -88,6 +94,7 @@
                     this.$store.commit('changeFilterMode', value)
                     this.$store.commit('changeFilterResult', {rate:0, searchTotal:0})
                     this.$store.commit('changeTagId', '')
+                    this.$store.commit('changeTagName', '')
                     this.$store.commit('changeFilters', null)
                 }
             },
