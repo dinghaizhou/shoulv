@@ -66,6 +66,7 @@
             </div>
         </div>
         <el-button type="primary" class="search-button button-mini" @click="search">查询</el-button>
+        <el-button type="default" class="search-button button-mini" @click="reset">重置</el-button>
     </div>
 </template>
 <script>
@@ -75,7 +76,6 @@
         components: {filterCheckbox},
         data: () => {
             return {
-
                 list1: [],
                 list2: [],
                 list3: [],
@@ -91,7 +91,6 @@
                 brand: '',
                 actionStatus: '',
                 loading: false
-
             }
         },
         mounted() {
@@ -112,6 +111,7 @@
             .catch((res) => {
                 this.$message.warning('网络错误')
             })
+            this.reset()
         },
         watch: {
             'actionKind'(value) {
@@ -124,6 +124,17 @@
                 var filters = {primaryKind,actionKind,frequencyKind,sourceKind,costabilityKind,brand,actionStatus}
                 this.$store.commit('changePage', 1)
                 this.$store.dispatch('getFilterResultByFilters', filters)
+            },
+            reset() {
+                this.$store.dispatch('getFilterResultByFilters', {
+                    primaryKind: '',
+                    actionKind: '',
+                    frequencyKind: '',
+                    sourceKind: '',
+                    costabilityKind: '',
+                    brand: '',
+                    actionStatus: '',
+                })
             }
         }
 
