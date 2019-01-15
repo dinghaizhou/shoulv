@@ -35,7 +35,7 @@ a {text-decoration:none;outline:none;color:#20a0ff;}
 .pull-left{float:left}
 .pull-right{float:right}
 .clearfix::after {content: '';display: block; clear:both;height:0;overflow: hidden;}
-.el-pagination {text-align: right}
+.el-pagination {text-align: right;margin-top:20px;}
 .el-input__inner {line-height: 36px; height: 36px;}
 .el-dialog__title {font-weight: bolder; font-size: 16px;color: #393c42;line-height:26px;}
 
@@ -49,6 +49,18 @@ a {text-decoration:none;outline:none;color:#20a0ff;}
     background-color: #0486fe;
     border-color: #0486fe;
 }
+.el-button--primary:focus {
+    color: #fff;
+    background-color: #0486fe;
+    border-color: #0486fe;
+}
+
+.el-button--default:focus {
+    background: #fff;
+    border: 1px solid #dcdfe6;
+    color: #606266;
+}
+
 .button-mini {
     padding: 0 20px;
     font-size:12px;

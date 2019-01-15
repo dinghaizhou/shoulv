@@ -192,7 +192,7 @@
 <style lang="scss" scoped>
     .selected {
         .el-pagination {
-            margin-top: 35px;
+            margin-top: 20px;
         }
     }
 </style>

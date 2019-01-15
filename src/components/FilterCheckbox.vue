@@ -48,7 +48,7 @@
                 color: #636569;
                 float: left;
                 padding: 0 10px;
-                line-height: 36px;
+                line-height: 34px;
                 border: 1px solid #dcdfe6;
                 border-radius: 5px;
                 margin: 0 10px 10px 0;

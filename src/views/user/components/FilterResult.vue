@@ -7,7 +7,7 @@
             <span style="color:#9ea1a6;font-size:12px;margin: 0 20px 0 8px">(选填)</span>
             <el-input 
             maxlength="10"
-            style="width:300px;margin-right:20px;"
+            style="width:300px;margin-right:10px;"
             placeholder="请输入标签名，最多支持10个字"
             v-model="tagNames"
             ></el-input>

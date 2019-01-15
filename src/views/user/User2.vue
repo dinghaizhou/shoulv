@@ -11,10 +11,10 @@
                     <custom-filter v-if="filterMode == 'custom'"/>
                     <tags-filter v-if="filterMode == 'tags'"/>
                 </div>
-                <div>
-                    <filter-result></filter-result>
-                </div>
             </div>
+        </div>
+        <div class="innerbox" style="margin-bottom: 20px;">
+            <filter-result></filter-result>
         </div>
         <div class="innerbox">
             <el-table
@@ -137,25 +137,6 @@
         }
         .content {
             width:100%;
-            position: relative;
-            &>div {
-                box-sizing: border-box;
-                float: left;
-                &:first-child {
-                    width: 55%;
-                    border-right: 1px solid #ebeef5;
-                }
-                &:last-child {
-                    // position: absolute;
-                    // top: 0;
-                    // left: 55%;
-                    // bottom:0;
-                    width: 45%;
-                    // border-left: 1px solid #ebeef5;
-                    // transform: translateX(-1px)
-                }
-            }
-            
         }    
         .el-pagination {
             margin-top: 20px;
