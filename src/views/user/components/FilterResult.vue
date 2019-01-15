@@ -1,23 +1,56 @@
 <template>
     <div class="filter-result">
-        <div style="line-height: 20px;font-size: 14px;">筛选结果</div>
-        <div style="width:100%;height:170px;margin: 8px auto 0 auto;" id="filterResult"></div>
-        <div style="line-height: 36px;font-size: 14px;">
-            <span> {{filterMode == 'custom' ? '添加' : '修改'}}标签</span>
-            <span style="color:#9ea1a6;font-size:12px;margin: 0 20px 0 8px">(选填)</span>
-            <el-input 
-            maxlength="10"
-            style="width:300px;margin-right:10px;"
-            placeholder="请输入标签名，最多支持10个字"
-            v-model="tagNames"
-            ></el-input>
-            <el-button class="button-max m-t-10" @click="saveTags">保存</el-button>
-            <el-button class="button-max m-t-10" @click="deleteTags">删除</el-button>
+        <el-row>
+            <el-col :span="12">
+                <div style="line-height:32px;font-size: 14px;margin-right:20px;" class="pull-left">筛选结果</div>
+                <div style="line-height:32px;font-size: 14px;" class="pull-left">
+                    <!-- <span> {{filterMode == 'custom' ? '添加' : '修改'}}标签</span> -->
+                    <!-- <span style="color:#9ea1a6;font-size:12px;margin: 0 20px 0 8px">(选填)</span> -->
+                    <el-input 
+                    maxlength="10"
+                    style="width:160px;margin-right:10px;"
+                    placeholder="请输入标签名"
+                    v-model="tagNames"
+                    ></el-input>
+                    <el-button type="primary" class="button-mini" @click="saveTags">保存</el-button>
+                    <el-button class="button-mini" @click="deleteTags">删除</el-button>
+                </div>
+            </el-col>
+
+            <el-col :span="12">
+                 <div class="pull-right">
+                    <el-button class="button-mini" @click="exportToPackage" type="primary" >导出人群包</el-button>
+                    <el-button class="button-mini" @click="exportAsSelected">导出人群优选</el-button>
+                </div>
+            </el-col>
+        </el-row>
+        <div class="flex-a" style="padding-top:10px;">
+            <div style="width:60%;height:170px" class="flex-b">
+                <div class="flex-c-c"> 
+                    <div style="height:60px;color:#0486fe;" class="flex-b-c">
+                        <span>所占比例</span>
+                        <span style="font-size:22px;font-weight:500;">{{filterResult.rate}}%</span>
+                    </div>
+                </div>
+                <div class="flex-c-c">
+                    <div style="height:60px;padding-left:30px;border-left:1px solid #eee;" class="flex-b-c">
+                        <span>占比人数（人）</span>
+                        <span style="font-size:22px;font-weight:500;">{{filterResult.searchTotal}}</span>
+                    </div>
+                </div>
+                <div class="flex-c-c">
+                    <div style="height:60px;padding-left:30px;border-left:1px solid #eee;" class="flex-b-c">
+                        <span>用户总数（人）</span>
+                        <span style="font-size:22px;font-weight:500">{{filterResult.total}}</span>
+                    </div>
+                </div>
+            </div>
+            <div style="width:40%;margin-left:40px">
+                <div style="width:100%;max-width:400px;height:170px;margin: 8px auto 0 auto;" id="filterResult"></div>
+            </div>
         </div>
-        <div style="margin-top: 22px;">
-            <el-button class="button-mini" @click="exportToPackage" type="primary" >导出人群包</el-button>
-            <el-button class="button-mini" @click="exportAsSelected">导出人群优选</el-button>
-        </div>
+        
+       
         <export-package :visiable.sync="packageDialogVisiable"></export-package>
         <export-selected :visiable.sync="selectedDialogVisiable"></export-selected>
     </div>
@@ -263,7 +296,6 @@
 <style lang="scss" scoped>
     .filter-result {
         width: 100%;
-        padding-left: 60px;
     }
 
 </style>

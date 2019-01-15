@@ -1,31 +1,31 @@
 <template>
     <div class="custom-filter" v-loading="loading">
-        <div class="section clearfix">
+        <div class="section clearfix pull-left">
             <div class="section-title ">业务标签：</div>
             <div class="section-body">
                 <filterCheckbox :lists="list1" v-model="primaryKind"/>
             </div>
         </div>
-         <div class="section clearfix">
+         <div class="section clearfix pull-left">
             <div class="section-title">行为标签：</div>
             <div class="section-body">
                 <filterCheckbox :lists="list2" v-model="actionKind"/>
             </div>
         </div>
-         <div class="section clearfix">
+         <div class="section clearfix pull-left">
             <div class="section-title">行为频率：</div>
             <div class="section-body">
                 <filterCheckbox :lists="list3" v-model="frequencyKind"/>
             </div>
         </div>
-         <div class="section clearfix" v-if="!actionKind">
+        <div class="section clearfix pull-left" v-if="!actionKind">
             <div class="section-title">客户来源：</div>
             <div class="section-body">
                 <filterCheckbox :lists="list4" v-model="sourceKind"/>
             </div>
         </div>
         <div class="clearfix">
-            <div class="section clearfix pull-left" style="margin-right: 30px;"> 
+            <div class="section clearfix pull-left"> 
                 <div class="section-title">消费能力：</div>
                 <div class="section-body">
                     <el-select v-model="costabilityKind" clearable placeholder="不限" class="m-b-10">
@@ -38,7 +38,7 @@
                     </el-select>
                 </div>
             </div>
-            <div class="section clearfix pull-left" style="margin-right: 30px;">
+            <div class="section clearfix pull-left">
                 <div class="section-title">品牌会员：</div>
                 <div class="section-body">
                     <el-select v-model="brand" clearable placeholder="不限" class="m-b-10">
@@ -135,6 +135,13 @@
                     brand: '',
                     actionStatus: '',
                 })
+                this.primaryKind = '';
+                this.actionKind = '';
+                this.frequencyKind = '';
+                this.sourceKind = '';
+                this.costabilityKind = '';
+                this.brand = "";
+                this.actionStatus = ''
             }
         }
 
@@ -142,7 +149,10 @@
 </script>
 <style lang="scss" scoped>
     .custom-filter {
-        .section { line-height: 36px;
+        .section { 
+            line-height: 36px;
+            margin-right:60px;
+            margin-bottom: 10px;
             .section-title {width: 90px;float: left;color:#0c0c0c;font-size: 14px;}
             .section-body {margin-left: 90px;
                 .el-select {
@@ -152,7 +162,7 @@
         }
         .search-button {
             min-width: 98px;
-            margin-top: 20px;
+            margin-top: 10px;
         }
     }
 
