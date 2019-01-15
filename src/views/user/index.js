@@ -10,7 +10,9 @@ export default {
         loading_table: false,
         tagId: '',
         tagName: '',
-        tagLists: []
+        tagLists: [],
+        loading_setTag: false,
+        isInit: true
     },
     mutations: {
         changeFilterMode(state, value) {
@@ -34,6 +36,9 @@ export default {
         changeLoadingTable(state,value) {
             state.loading_table = value
         },
+        changeLoadingSetTag(state,value) {
+            state.loading_setTag = value
+        },
         changeTagId(state,value) {
             state.tagId = value
         },
@@ -42,6 +47,9 @@ export default {
         },
         changeTagLists(state, value) {
             state.tagLists = value
+        },
+        changeIsInit(state, value) {
+            state.isInit = value
         }
     },
     actions: {

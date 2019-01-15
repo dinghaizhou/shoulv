@@ -1,9 +1,9 @@
 <template>
-    <div class="filter-result">
+    <div class="filter-result" v-loading="loading_setTag">
         <el-row>
             <el-col :span="12">
                 <div style="line-height:32px;font-size: 14px;margin-right:20px;" class="pull-left">筛选结果</div>
-                <div style="line-height:32px;font-size: 14px;" class="pull-left">
+                <div style="line-height:32px;font-size: 14px;" class="pull-left" v-if="!isInit">
                     <!-- <span> {{filterMode == 'custom' ? '添加' : '修改'}}标签</span> -->
                     <!-- <span style="color:#9ea1a6;font-size:12px;margin: 0 20px 0 8px">(选填)</span> -->
                     <el-input 
@@ -14,6 +14,9 @@
                     ></el-input>
                     <el-button type="primary" class="button-mini" @click="saveTags">保存</el-button>
                     <el-button class="button-mini" @click="deleteTags">删除</el-button>
+                </div>
+                <div v-else>
+                    <el-button class="button-mini" disabled icon="el-icon-plus">添加标签</el-button>
                 </div>
             </el-col>
 
@@ -91,6 +94,8 @@
                 filterResult: state => state.user.filterResult,
                 tagName: state => state.user.tagName,
                 tagId: state => state.user.tagId,
+                loading_setTag: state => state.user.loading_setTag,
+                isInit: state => state.user.isInit,
             })
         },
         mounted() {
@@ -122,19 +127,21 @@
                         this.$message.warning('请输入标签名')
                         return
                     }
-                    this.$store.commit('changeLoading', true)
+                    this.$store.commit('changeLoadingSetTag', true)
                     this.$http.post('/api/Consumer/setTag',{
                         info: JSON.stringify(this.filters),
                         name: this.tagNames
                     })
                     .then((res) => {
-                        this.$store.commit('changeLoading', false)
+                        this.$store.commit('changeLoadingSetTag', false)
                         this.$message.success('添加成功')
                         this.tagNames = ''
                     })
                     .catch((res) => {
-                        this.$message.success('保存失败')
-                        this.$store.commit('changeLoading', false)
+                        this.$store.commit('changeLoadingSetTag', false)
+                        if(!res.msg) {
+                            this.$message.success('保存失败')
+                        }
                     })
                 } else {
                     if(!this.tagId) {
