@@ -11,8 +11,8 @@
                 <annular-percent name="Offline" type="Offline" :percent="insightData && insightData.type ? insightData.type.offline : 0" color="#6d7076"></annular-percent>
             </div>
             <div class="innerbox" style="width:29%;">
-                <person-percent :percent="insightData && insightData.type ? insightData.type.boy : 0" type="Male"></person-percent>                
-                <person-percent :percent="insightData && insightData.type ? insightData.type.girl : 0" type="Female"></person-percent>                
+                <person-percent :percent="insightData && insightData.type ? insightData.type.boy : 0" type="Male" color="#55a4f6"></person-percent>                
+                <person-percent :percent="insightData && insightData.type ? insightData.type.girl : 0" type="Female" color="#83d198"></person-percent>                
             </div>
         </div>
         <div>

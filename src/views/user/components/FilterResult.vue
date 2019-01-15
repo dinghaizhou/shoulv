@@ -3,7 +3,10 @@
         <el-row>
             <el-col :span="12">
                 <div style="line-height:32px;font-size: 14px;margin-right:20px;" class="pull-left">筛选结果</div>
-                <div style="line-height:32px;font-size: 14px;" class="pull-left" v-if="!isInit">
+                <div>
+                    <el-button class="button-mini" icon="el-icon-plus" v-if="!canAdd" @click="showadd">添加标签</el-button>
+                </div>
+                <div style="line-height:32px;font-size: 14px;" class="pull-left" v-if="canAdd">
                     <!-- <span> {{filterMode == 'custom' ? '添加' : '修改'}}标签</span> -->
                     <!-- <span style="color:#9ea1a6;font-size:12px;margin: 0 20px 0 8px">(选填)</span> -->
                     <el-input 
@@ -13,11 +16,9 @@
                     v-model="tagNames"
                     ></el-input>
                     <el-button type="primary" class="button-mini" @click="saveTags">保存</el-button>
-                    <el-button class="button-mini" @click="deleteTags">删除</el-button>
+                    <el-button class="button-mini" @click="deleteTags">取消</el-button>
                 </div>
-                <div v-else>
-                    <el-button class="button-mini" disabled icon="el-icon-plus">添加标签</el-button>
-                </div>
+                
             </el-col>
 
             <el-col :span="12">
@@ -83,7 +84,8 @@
             return {
                 packageDialogVisiable: false,
                 selectedDialogVisiable: false,
-                tagNames: ''
+                tagNames: '',
+                canAdd: false
             }
         },
         props:[],
@@ -95,7 +97,8 @@
                 tagName: state => state.user.tagName,
                 tagId: state => state.user.tagId,
                 loading_setTag: state => state.user.loading_setTag,
-                isInit: state => state.user.isInit,
+                loading_search: state => state.user.loading_search,
+                // isInit: state => state.user.isInit,
             })
         },
         mounted() {
@@ -116,6 +119,9 @@
             },
             exportAsSelected() {
                 this.selectedDialogVisiable = true
+            },
+            showadd() {
+                this.canAdd = true
             },
             saveTags() {
                 if(this.filterMode == 'custom') {
@@ -174,6 +180,7 @@
             deleteTags() {
                 if(this.filterMode == 'custom') {
                     this.tagNames = ''
+                    this.canAdd = false
                 } else {
                     if(!this.tagId) {
                         this.$message.warning('请先选择标签再删除')

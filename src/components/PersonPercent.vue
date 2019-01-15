@@ -14,7 +14,7 @@
         </div>
         <div class="right-side">
             <div>
-                <span class="block"></span>
+                <span class="block" :style="{'background': color}"></span>
                 <span style="color:#909399">{{type}}</span>
             </div>
             <div style="padding-left:15px;font-size:18px;font-weight:500;color:#33363c;">
@@ -27,7 +27,7 @@
     import echarts from 'echarts'
     export default {
         components: {},
-        props: ['percent', 'type'],
+        props: ['percent', 'type', 'color'],
         data: () => {
             return {
                 width: 0,
@@ -53,10 +53,14 @@
             } else if(document.body.offsetWidth <= 1440) {
                 this.chengshu = 2
                 this.itemMargin = 5
-            } else {
+            } else if (document.body.offsetWidth <= 1680){
                 this.chengshu = 2
                 this.itemMargin = 5
                 this.left = 20
+            } else {
+                this.chengshu = 2
+                this.itemMargin = 5
+                this.left = 50
             }
 
         },
@@ -71,11 +75,11 @@
         display: flex;
         .left-side {
             position:relative;
-            width: 78%;  
+            width: 76%;  
             height: 50px;  
         }
         .right-side {
-            width: 22%;
+            width: 24%;
             height: 50px;
         }
         ul {
