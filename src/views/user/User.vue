@@ -38,7 +38,7 @@
                 <el-table-column align="center" prop="birthday" label="生日"></el-table-column>
                 <el-table-column align="center" prop="phone" label="手机"></el-table-column>
                 <div slot="empty">
-                    <img src="@/assets/images/no-vip.png" style="margin-top: 90px;" alt="">
+                    <img src="@/assets/images/no-list.png" style="margin-top: 90px;width:300px;" alt="">
                     <div style="margin:25px 0 90px;font-size: 14px;color: #575759;">还未创建会员列表</div>
                 </div>
             </el-table>

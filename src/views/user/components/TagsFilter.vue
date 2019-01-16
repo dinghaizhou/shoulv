@@ -15,7 +15,7 @@
         </swiper1>
 
         <div v-else class="none-tags">
-            <img src="@/assets/images/empty.png" alt="">
+            <img src="@/assets/images/no-tag.png" style="width:300px;" alt="">
             <div style="margin-top:24px;font-size: 14px;color: #575759;text-align:center;">还未创建标签</div>
         </div>
     </div>
