@@ -64,6 +64,10 @@
                 this.detail = ''
             },
             exportToSelected() {
+                
+
+
+                
                 if(this.filterMode == 'custom') {
                     if(!this.filters) {
                         this.$message.warning('请先筛选出特定人群，再导出')

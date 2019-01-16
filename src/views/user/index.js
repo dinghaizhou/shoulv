@@ -85,6 +85,8 @@ export default {
                 store.commit('changeFilterResult', res.data)
                 store.commit('changeTagId', id)
                 store.commit('changeTagName', name)
+
+                store.commit('changeFilters', null)
                 store.commit('changeCanAdd', false)
                 store.commit('changeHasAdd', true)
             })

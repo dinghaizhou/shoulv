@@ -33,7 +33,7 @@
             <el-col :span="12">
                  <div class="pull-right">
                     <el-button class="button-mini" @click="exportToPackage" type="primary" >导出人群包</el-button>
-                    <el-button class="button-mini" @click="exportAsSelected" type="primary" >导出人群优选</el-button>
+                    <el-button class="button-mini" @click="exportAsSelected" type="primary" >创建人群优选</el-button>
                 </div>
             </el-col>
         </el-row>
@@ -127,6 +127,7 @@
                 this.packageDialogVisiable = true
             },
             exportAsSelected() {
+                console.log(this.filters, this.tagId)
                 this.selectedDialogVisiable = true
             },
             showadd() {

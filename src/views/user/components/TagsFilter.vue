@@ -84,7 +84,7 @@
                     navigation: {
                         nextEl: '.button-next',
                         prevEl: '.button-prev',
-                        hiddenClass: 'swiper-button-hidden',
+                        // hiddenClass: 'swiper-button-hidden',
                     },
                     //分页器设置         
                     pagination: {
@@ -158,6 +158,9 @@
             background-repeat: no-repeat;
             background-position: 2px 2px;
             right:0;
+            &:focus {
+                outline: none;
+            }
         }
         .button-next{
             background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23000000'%2F%3E%3C%2Fsvg%3E");
@@ -166,6 +169,9 @@
             background-size: 15px 15px;
             background-repeat: no-repeat;
             background-position: 2px 2px;
+            &:focus {
+                outline: none;
+            }
         }
         .swiper-pagination {
             bottom: 0px;
