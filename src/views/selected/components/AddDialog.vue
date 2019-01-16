@@ -156,9 +156,12 @@
             deletefile() {
                 if(this.is_uploading) {
                     this.cancel()
-                } else {
-                   this.reset()
-                }
+                } 
+                console.log(333)
+                this.process = '0'
+                this.file = null
+                this.show_button = true
+                this.filename = ''
             },
             reset() {
                 this.process = '0'

@@ -151,6 +151,11 @@ a {text-decoration:none;outline:none;color:#20a0ff;}
 .m-t-10 {
     margin-top: 10px;
 }
+.flex {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
 .flex-a {
     display: flex;
     justify-content: space-around;

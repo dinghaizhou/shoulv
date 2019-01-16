@@ -113,7 +113,7 @@ export default {
                 var origin_lists = res.data
                 var lists = []
                 for (var i = 0; i < origin_lists.length; i ++) {
-                    var j = Math.floor(i/50)
+                    var j = Math.floor(i/30)
                     if(!lists[j]) lists[j] = []
                     lists[j].push(origin_lists[i])
                 }
