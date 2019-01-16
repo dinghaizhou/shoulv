@@ -12,7 +12,8 @@ export default {
         tagName: '',
         tagLists: [],
         loading_setTag: false,
-        hasAdd: false
+        hasAdd: false,
+        canAdd: false,
     },
     mutations: {
         changeFilterMode(state, value) {
@@ -50,6 +51,9 @@ export default {
         },
         changeHasAdd(state, value) {
             state.hasAdd = value
+        },
+        changeCanAdd(state, value) {
+            state.canAdd = value
         }
     },
     actions: {
@@ -81,6 +85,8 @@ export default {
                 store.commit('changeFilterResult', res.data)
                 store.commit('changeTagId', id)
                 store.commit('changeTagName', name)
+                store.commit('changeCanAdd', false)
+                store.commit('changeHasAdd', true)
             })
         },
         getFilterResultByPage(store) {

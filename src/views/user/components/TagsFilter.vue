@@ -1,7 +1,7 @@
 <template>
     <div class="tags-filter clearfix" v-loading="loading">
         <div>   
-            <div class="title_1">自定义标签</div>
+            <div class="title">自定义标签</div>
             <!-- <filter-checkbox :lists="lists"> </filter-checkbox> -->
             <div style="position:releative;">
                 <swiper1 v-if="tagLists.length > 0" :options="swiperOption">
@@ -109,6 +109,7 @@
         methods: {
             filterChange(res) {
                 this.$store.commit('changePage', 1)
+                this.$store.commit('changeHasAdd', true)
                 this.$store.dispatch('getFilterResultById', res)
             },
             tagManage() {
@@ -139,8 +140,14 @@
 </script>
 <style lang="scss" scoped>
     .tags-filter {
+        .title {
+            line-height: 14px;
+            font-size: 14px;
+            width: 90px;
+            float: left;
+        }
         .swiper-slide{
-            padding: 20px 35px 5px 30px;
+            padding: 0px 10px 10px 10px;
             // min-height:200px;
         }
         .button-prev{

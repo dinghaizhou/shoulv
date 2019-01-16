@@ -85,6 +85,24 @@
             this.$store.commit('changeTagId', '')
             this.$store.commit('changeTagName', '')
             this.$store.commit('changeFilters', null)
+
+            this.$http.get('/api/Consumer/getBaseInfo', {loading: this})
+            .then((res) => {
+                this.list1 = res.data.primaryKind
+                this.list1.unshift({name: '不限', id: ""})
+                this.list2 = res.data.actionKind
+                this.list2.unshift({name: '不限', id: ""})
+                this.list3 = res.data.frequencyKind
+                this.list3.unshift({name: '不限', id: ""})
+                this.list4 = res.data.sourceKind  
+                this.list4.unshift({name: '不限', id: ""})
+                this.costAbilityOptions = res.data.costabilityKind
+                this.brandOptions = res.data.brand
+                this.actionStatusOptions = res.data.actionStatus
+            })
+            .catch((res) => {
+                this.$message.warning('网络错误')
+            })
         },
         updated() {
         },
@@ -92,10 +110,11 @@
             changeFilterMode(value) {
                 if(this.filterMode != value) {
                     this.$store.commit('changeFilterMode', value)
-                    this.$store.commit('changeFilterResult', {rate:0, searchTotal:0})
                     this.$store.commit('changeTagId', '')
                     this.$store.commit('changeTagName', '')
-                    this.$store.commit('changeFilters', null)
+                    
+                    // this.$store.commit('changeFilterResult', {rate:0, searchTotal:0})
+                    // this.$store.commit('changeFilters', null)
                 }
             },
             handleSizeChange(pageSize) {

@@ -185,4 +185,18 @@ a {text-decoration:none;outline:none;color:#20a0ff;}
     font-weight: bolder;
     color: #33363c;
 }
+.tags-filter .swiper-pagination-bullet {
+    width: 18px;
+    height: 4px;
+    display: inline-block;
+    border-radius: 4px;
+    background: #D1ECFF;
+    opacity: 0.2;
+}
+
+.tags-filter .swiper-pagination-bullet-active {
+    opacity: 1;
+    background: #63BCFF;
+}
+
 

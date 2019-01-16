@@ -3,14 +3,13 @@
         <el-row>
             <el-col :span="12">
                 <div style="line-height:32px;font-size: 14px;margin-right:20px;" class="pull-left">筛选结果</div>
-                <div v-if="filterMode == 'custom'">
                     <div v-if="!canAdd">
                         <el-button class="button-mini" icon="el-icon-plus" @click="showadd" v-if="!hasAdd">添加标签</el-button>
                         <span v-else>
                             <el-button class="button-mini no-click" disabled icon="el-icon-plus">
                                 添加标签
                             </el-button>
-                            <el-tooltip class="item" effect="dark" content="同一筛选结果不可重复创建标签" placement="top-start">
+                            <el-tooltip class="item" effect="dark" :content="filterMode == 'custom' ? '同一筛选结果不可重复创建标签' : '选择标签后不可添加'" placement="top-start">
                                 <span style='display:inline;width:110px;height:32px;position:absolute;left:75px;'></span>
                             </el-tooltip>
                         </span>
@@ -28,14 +27,13 @@
                         <el-button type="primary" class="button-mini" @click="saveTags">保存</el-button>
                         <el-button class="button-mini" @click="deleteTags">取消</el-button>
                     </div>
-                </div>
                 
             </el-col>
 
             <el-col :span="12">
                  <div class="pull-right">
                     <el-button class="button-mini" @click="exportToPackage" type="primary" >导出人群包</el-button>
-                    <el-button class="button-mini" @click="exportAsSelected">导出人群优选</el-button>
+                    <el-button class="button-mini" @click="exportAsSelected" type="primary" >导出人群优选</el-button>
                 </div>
             </el-col>
         </el-row>
@@ -95,8 +93,7 @@
             return {
                 packageDialogVisiable: false,
                 selectedDialogVisiable: false,
-                tagNames: '',
-                canAdd: false
+                tagNames: ''
             }
         },
         props:[],
@@ -110,6 +107,7 @@
                 loading_setTag: state => state.user.loading_setTag,
                 loading_search: state => state.user.loading_search,
                 hasAdd: state => state.user.hasAdd,
+                canAdd: state => state.user.canAdd,
             })
         },
         mounted() {
@@ -132,66 +130,40 @@
                 this.selectedDialogVisiable = true
             },
             showadd() {
-                this.canAdd = true
+                this.$store.commit('changeCanAdd', true)
             },
             saveTags() {
-                if(this.filterMode == 'custom') {
-                    if(!this.filters) {
-                        this.$message.warning('请先筛选出特定人群再保存')
-                        return
+                if(!this.filters) {
+                    this.$message.warning('请先筛选出特定人群再保存')
+                    return
+                }
+                if (!this.tagNames) {
+                    this.$message.warning('请输入标签名')
+                    return
+                }
+                this.$store.commit('changeLoadingSetTag', true)
+                this.$http.post('/api/Consumer/setTag',{
+                    info: JSON.stringify(this.filters),
+                    name: this.tagNames
+                })
+                .then((res) => {
+                    this.$store.commit('changeCanAdd', false)
+                    this.$store.commit('changeHasAdd', true)
+                    this.$store.commit('changeLoadingSetTag', false)
+                    this.$store.dispatch('getTagsLists')
+                    this.$message.success('添加成功')
+                    this.tagNames = ''
+                })
+                .catch((res) => {
+                    this.$store.commit('changeLoadingSetTag', false)
+                    if(!res.msg) {
+                        this.$message.success('保存失败')
                     }
-                    if (!this.tagNames) {
-                        this.$message.warning('请输入标签名')
-                        return
-                    }
-                    this.$store.commit('changeLoadingSetTag', true)
-                    this.$http.post('/api/Consumer/setTag',{
-                        info: JSON.stringify(this.filters),
-                        name: this.tagNames
-                    })
-                    .then((res) => {
-                        this.canAdd = false
-                        this.$store.commit('changeHasAdd', true)
-                        this.$store.commit('changeLoadingSetTag', false)
-                        this.$message.success('添加成功')
-                        this.tagNames = ''
-                    })
-                    .catch((res) => {
-                        this.$store.commit('changeLoadingSetTag', false)
-                        if(!res.msg) {
-                            this.$message.success('保存失败')
-                        }
-                    })
-                } 
-                // if(!this.tagId) {
-                //     this.$message.warning('请先选择标签再修改')
-                //     return
-                // }
-                // if (!this.tagNames) {
-                //     this.$message.warning('请输入标签名')
-                //     return
-                // }
-                // this.$http.post('/api/Consumer/tagedit',{
-                //     id: this.tagId,
-                //     name: this.tagNames
-                // })
-                // .then(() => {
-                //     this.$message.success('修改成功')
-                //     // this.$store.commit('changeFilterResult', {rate:0, searchTotal:0})
-                //     // this.$store.commit('changeTagId', '')
-                //     this.$store.commit('changeTagName', this.tagNames)
-                //     this.$store.dispatch('getTagsLists')
-                //     return
-                // })
-                // .catch((res) => {
-                //     if(!res.msg) {
-                //         this.$message.warning('修改失败')
-                //     }
-                // })
+                })
             },
             deleteTags() {
                     this.tagNames = ''
-                    this.canAdd = false
+                    this.$store.commit('changeCanAdd', false)
             },
             drawPie() {
                 let myChart = this.$echarts.init(document.getElementById('filterResult'))

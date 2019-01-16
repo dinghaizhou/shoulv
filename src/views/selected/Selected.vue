@@ -60,7 +60,7 @@
                         </template>
                     </el-table-column>
                     <div slot="empty">
-                        <img src="@/assets/images/no-vip.png" style="margin-top: 90px;" alt="">
+                        <img src="@/assets/images/no-list.png"  style="margin-top:90px;width:200px;" alt="">
                         <div style="margin:25px 0 90px;font-size: 14px;color: #575759;">还未创建人群列表</div>
                     </div>
                 </el-table>

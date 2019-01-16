@@ -124,7 +124,6 @@
                 var filters = {primaryKind,actionKind,frequencyKind,sourceKind,costabilityKind,brand,actionStatus}
                 this.$store.commit('changePage', 1)
                 this.$store.dispatch('getFilterResultByFilters', filters)
-                this.$store.dispatch("changeIsInit", false)
             },
             reset() {
                 this.$store.dispatch('getFilterResultByFilters', {
