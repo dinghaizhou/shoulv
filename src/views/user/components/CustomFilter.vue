@@ -18,7 +18,7 @@
                 <filterCheckbox :lists="list3" v-model="frequencyKind"/>
             </div>
         </div>
-        <div class="section clearfix pull-left" v-if="!actionKind">
+        <div class="section clearfix pull-left" v-if="!actionKind || actionKind == 3">
             <div class="section-title">客户来源：</div>
             <div class="section-body">
                 <filterCheckbox :lists="list4" v-model="sourceKind"/>
