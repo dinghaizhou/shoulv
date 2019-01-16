@@ -23,7 +23,7 @@
         </div>
         <div class='flex-b'>
             <el-button class="button-mini" @click="tagManage" v-if="!isDelete">标签管理</el-button>
-            <el-button class="button-mini" type="primary" @click="tagSave" v-else>保存</el-button>
+            <el-button class="button-mini" type="primary" @click="tagSave" v-else>完成</el-button>
             <div class="flex-b">
                 <div style='height: 33px;width:33px;background:#eee;margin-right:10px;border-radius:5px;' class="flex">   
                     <div class="button-prev swiper-button-prev"></div>
