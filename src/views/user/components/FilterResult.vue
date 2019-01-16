@@ -3,29 +3,31 @@
         <el-row>
             <el-col :span="12">
                 <div style="line-height:32px;font-size: 14px;margin-right:20px;" class="pull-left">筛选结果</div>
-                <div v-if="!canAdd">
-                    <el-button class="button-mini" icon="el-icon-plus" @click="showadd" v-if="!hasAdd">添加标签</el-button>
-                    <span v-else>
-                        <el-button class="button-mini no-click" disabled icon="el-icon-plus">
-                            添加标签
-                        </el-button>
-                        <el-tooltip class="item" effect="dark" content="同一筛选结果不可重复创建标签" placement="top-start">
-                            <span style='display:inline;width:110px;height:32px;position:absolute;left:75px;'></span>
-                        </el-tooltip>
-                    </span>
-                    
-                </div>
-                <div style="line-height:32px;font-size: 14px;" class="pull-left" v-else>
-                    <!-- <span> {{filterMode == 'custom' ? '添加' : '修改'}}标签</span> -->
-                    <!-- <span style="color:#9ea1a6;font-size:12px;margin: 0 20px 0 8px">(选填)</span> -->
-                    <el-input 
-                    maxlength="10"
-                    style="width:160px;margin-right:10px;"
-                    placeholder="请输入标签名"
-                    v-model="tagNames"
-                    ></el-input>
-                    <el-button type="primary" class="button-mini" @click="saveTags">保存</el-button>
-                    <el-button class="button-mini" @click="deleteTags">取消</el-button>
+                <div v-if="filterMode == 'custom'">
+                    <div v-if="!canAdd">
+                        <el-button class="button-mini" icon="el-icon-plus" @click="showadd" v-if="!hasAdd">添加标签</el-button>
+                        <span v-else>
+                            <el-button class="button-mini no-click" disabled icon="el-icon-plus">
+                                添加标签
+                            </el-button>
+                            <el-tooltip class="item" effect="dark" content="同一筛选结果不可重复创建标签" placement="top-start">
+                                <span style='display:inline;width:110px;height:32px;position:absolute;left:75px;'></span>
+                            </el-tooltip>
+                        </span>
+                        
+                    </div>
+                    <div style="line-height:32px;font-size: 14px;" class="pull-left" v-else>
+                        <!-- <span> {{filterMode == 'custom' ? '添加' : '修改'}}标签</span> -->
+                        <!-- <span style="color:#9ea1a6;font-size:12px;margin: 0 20px 0 8px">(选填)</span> -->
+                        <el-input 
+                        maxlength="10"
+                        style="width:160px;margin-right:10px;"
+                        placeholder="请输入标签名"
+                        v-model="tagNames"
+                        ></el-input>
+                        <el-button type="primary" class="button-mini" @click="saveTags">保存</el-button>
+                        <el-button class="button-mini" @click="deleteTags">取消</el-button>
+                    </div>
                 </div>
                 
             </el-col>
@@ -148,7 +150,6 @@
                         name: this.tagNames
                     })
                     .then((res) => {
-
                         this.canAdd = false
                         this.$store.commit('changeHasAdd', true)
                         this.$store.commit('changeLoadingSetTag', false)
@@ -161,59 +162,36 @@
                             this.$message.success('保存失败')
                         }
                     })
-                } else {
-                    if(!this.tagId) {
-                        this.$message.warning('请先选择标签再修改')
-                        return
-                    }
-                    if (!this.tagNames) {
-                        this.$message.warning('请输入标签名')
-                        return
-                    }
-                    this.$http.post('/api/Consumer/tagedit',{
-                        id: this.tagId,
-                        name: this.tagNames
-                    })
-                    .then(() => {
-                        this.$message.success('修改成功')
-                        // this.$store.commit('changeFilterResult', {rate:0, searchTotal:0})
-                        // this.$store.commit('changeTagId', '')
-                        this.$store.commit('changeTagName', this.tagNames)
-                        this.$store.dispatch('getTagsLists')
-                        return
-                    })
-                    .catch((res) => {
-                        if(!res.msg) {
-                            this.$message.warning('修改失败')
-                        }
-                    })
-                }
+                } 
+                // if(!this.tagId) {
+                //     this.$message.warning('请先选择标签再修改')
+                //     return
+                // }
+                // if (!this.tagNames) {
+                //     this.$message.warning('请输入标签名')
+                //     return
+                // }
+                // this.$http.post('/api/Consumer/tagedit',{
+                //     id: this.tagId,
+                //     name: this.tagNames
+                // })
+                // .then(() => {
+                //     this.$message.success('修改成功')
+                //     // this.$store.commit('changeFilterResult', {rate:0, searchTotal:0})
+                //     // this.$store.commit('changeTagId', '')
+                //     this.$store.commit('changeTagName', this.tagNames)
+                //     this.$store.dispatch('getTagsLists')
+                //     return
+                // })
+                // .catch((res) => {
+                //     if(!res.msg) {
+                //         this.$message.warning('修改失败')
+                //     }
+                // })
             },
             deleteTags() {
-                if(this.filterMode == 'custom') {
                     this.tagNames = ''
                     this.canAdd = false
-                } else {
-                    if(!this.tagId) {
-                        this.$message.warning('请先选择标签再删除')
-                        return
-                    } 
-                   
-                    this.$http.post('/api/Consumer/tagdel',{
-                        id: this.tagId
-                    })
-                    .then(() => {
-                        this.$message.success('删除成功')
-                        this.$store.commit('changeFilterResult', {rate:0, searchTotal:0})
-                        this.$store.commit('changeTagId', '')
-                        this.$store.commit('changeTagName', '')
-                        this.$store.dispatch('getTagsLists')
-                        return
-                    })
-                    .catch(() => {
-                        this.$message.warning('删除失败')
-                    })
-                }
             },
             drawPie() {
                 let myChart = this.$echarts.init(document.getElementById('filterResult'))

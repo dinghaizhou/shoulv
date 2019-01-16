@@ -1,9 +1,11 @@
 <template>
     <div class="filter-checkbox clearfix">
         <ul>
-            <li :class="{'active': item.id == value }" v-for="(item) in lists" :key="item.id"
+            <li :class="{'active': item.id == value , 'normal': !isDelete, 'delete': isDelete}" v-for="(item,index) in lists" :key="item.id"
             @click="select(item)"
-            :style="{ marginBottom: bottom, marginRight: right }">{{item.name}}</li>
+            :style="{ marginBottom: bottom, marginRight: right }">{{item.name}}
+            <span class="deleteX" v-if="isDelete" @click="deleteTag(item,index)">+</span>
+            </li>
         </ul>
     </div>
 </template>
@@ -22,6 +24,9 @@
             },
             value: {
                 default: ''
+            },
+            isDelete: {
+                default: false
             }
         },
         data: () => {
@@ -34,8 +39,14 @@
         },
         methods: {
             select(item) {
-                this.$emit('input', item.id)
-                this.$emit('change', item)
+                if(!this.isDelete) {
+                    this.$emit('input', item.id)
+                    this.$emit('change', item)
+                }
+            },
+            deleteTag(item,index) {
+                console.log(333)
+                this.$emit('delete', item, index)
             }
         }
     }
@@ -48,17 +59,33 @@
                 color: #636569;
                 float: left;
                 padding: 0 10px;
-                line-height: 34px;
+                line-height: 32px;
                 border: 1px solid #dcdfe6;
                 border-radius: 5px;
                 margin: 0 10px 10px 0;
-                cursor: pointer;
                 box-sizing: border-box;
             }
-            li.active {
+            li.normal {
+                cursor: pointer;
+            }
+            li.normal.active {
                 color: #0486fe;
                 border:1px solid #0486fe;
             }
+            li.delete {
+                border:1px solid #0486fe;
+                color: #0486fe;
+                span {
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .deleteX {
+            margin-left: 10px;
+            font-size: 18px;    
+            display: inline-block;
+            transform: rotate(45deg)
         }
     }
 

@@ -6,8 +6,8 @@
             <div style="position:releative;">
                 <swiper1 v-if="tagLists.length > 0" :options="swiperOption">
                     <!-- slides -->
-                    <swiper-slide1 v-for="item in tagLists" :key="item.id">
-                        <tags-checkbox bottom="16px" v-model="tags" :lists="item" @change="filterChange"> </tags-checkbox>
+                    <swiper-slide1 v-for="(item) in tagLists" :key="item.id">
+                        <tags-checkbox :isDelete="isDelete" bottom="16px" v-model="tags" :lists="item" @change="filterChange" @delete="tagsDelete"> </tags-checkbox>
                     </swiper-slide1>
                     <!-- Optional controls -->
                     <div class="swiper-pagination" slot="pagination"></div>
@@ -16,19 +16,20 @@
                     <!-- <div class="swiper-scrollbar"   slot="scrollbar"></div> -->
                 </swiper1>
                 <div v-else class="none-tags">
-                    <img src="@/assets/images/no-tag.png" style="width:300px;" alt="">
+                    <img src="@/assets/images/no-tag.png" style="width:200px;" alt="">
                     <div style="margin-top:24px;font-size: 14px;color: #575759;text-align:center;">还未创建标签</div>
                 </div>
             </div>
         </div>
         <div class='flex-b'>
-            <el-button class="button-mini">标签管理</el-button>
+            <el-button class="button-mini" @click="tagManage" v-if="!isDelete">标签管理</el-button>
+            <el-button class="button-mini" type="primary" @click="tagSave" v-else>保存</el-button>
             <div class="flex-b">
-                <div style='height: 32px;width:30px;background:#eee;margin-right:10px;' class="flex">   
-                    <div class="button-prev"></div>
+                <div style='height: 33px;width:33px;background:#eee;margin-right:10px;border-radius:5px;' class="flex">   
+                    <div class="button-prev swiper-button-prev"></div>
                 </div>
-                <div style='height: 32px;width:30px;background:#eee;' class="flex">
-                    <div class="button-next"></div>
+                <div style='height: 33px;width:33px;background:#eee;border-radius:5px;' class="flex">
+                    <div class="button-next swiper-button-next"></div>
                 </div>
                 
             </div>
@@ -51,6 +52,7 @@
                 lists: [],
                 loading: false,
                 tags: '',
+                isDelete: false,
                 swiperOption: {  
                     notNextTick: true,
                     //循环
@@ -108,6 +110,29 @@
             filterChange(res) {
                 this.$store.commit('changePage', 1)
                 this.$store.dispatch('getFilterResultById', res)
+            },
+            tagManage() {
+                this.isDelete = true
+                this.tags = ''
+                this.$store.commit('changeFilterResult', {rate:0, searchTotal:0})
+                this.$store.commit('changeTagId', '')
+                this.$store.commit('changeTagName', '')
+            },
+            tagSave() {
+                this.isDelete = false
+            },
+            tagsDelete(item, index, a) {
+                this.$http.post('/api/Consumer/tagdel',{
+                    id: item.id
+                })
+                .then(() => {
+                    this.$message.success('删除成功')
+                    this.$store.dispatch('getTagsLists')
+                    return
+                })
+                .catch(() => {
+                    this.$message.warning('删除失败')
+                })
             }
         }
     }
