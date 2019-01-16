@@ -7,7 +7,7 @@
             width="30%"
             :before-close="handleClose">
             <el-input maxlength="10" placeholder="请输入人群标题" v-model="title">
-                <span slot="suffix" style="line-height:34px;">{{title.length}}/10</span>
+                <span slot="suffix" style="line-height:34px;font-size:14px;">{{title.length}}/10</span>
             </el-input>
             <div style="position:relative">
                 <el-input
@@ -154,6 +154,7 @@
             position: absolute;
             bottom: 0;
             right: 10px;
+            font-size:14px;
         }
     }
 </style>

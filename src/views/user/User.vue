@@ -22,15 +22,24 @@
             :data="filterResult.list"
             header-row-class-name="table-header">
                 <el-table-column align="center" prop="userid" width="100" label="用户ID"></el-table-column>
-                <el-table-column align="center" prop="sourcetype" label="用户来源"></el-table-column>
-                <el-table-column align="center" prop="cost" label="消费总额"></el-table-column>
-                <!-- <el-table-column prop="tags" label="相关标签"></el-table-column> -->
+                <el-table-column align="center" prop="sourcetype" label="用户来源">
+                    <template slot-scope="scope">
+                        {{scope.row.sourcetype ? scope.row.sourcetype  : '——'}}
+                    </template>
+                </el-table-column>
+                <el-table-column align="center" prop="cost" label="消费总额">
+                    <template slot-scope="scope">
+                        {{scope.row.cost ? scope.row.cost  : '——'}}
+                    </template>
+                </el-table-column>
                 <el-table-column align="center" prop="brand" label="会员">
-
+                    <template slot-scope="scope">
+                        {{scope.row.brand ? scope.row.brand  : '——'}}
+                    </template>
                 </el-table-column>
                 <el-table-column align="center" prop="sex" label="性别">
                     <!-- <template slot-scope="scope">
-                        {{sex[scope.row.sex]}}
+                        {{scope.row.sex ? scope.row.sex  : '——'}}
                     </template> -->
                 </el-table-column>
 
