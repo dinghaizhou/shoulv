@@ -3,10 +3,10 @@
         <el-row>
             <el-col :span="12">
                 <div style="line-height:32px;font-size: 14px;margin-right:20px;" class="pull-left">筛选结果</div>
-                <div>
-                    <el-button class="button-mini" icon="el-icon-plus" v-if="!canAdd" @click="showadd">添加标签</el-button>
+                <div v-if="!canAdd">
+                    <el-button class="button-mini" :disabled="hasAdd" icon="el-icon-plus" @click="showadd">添加标签</el-button>
                 </div>
-                <div style="line-height:32px;font-size: 14px;" class="pull-left" v-if="canAdd">
+                <div style="line-height:32px;font-size: 14px;" class="pull-left" v-else>
                     <!-- <span> {{filterMode == 'custom' ? '添加' : '修改'}}标签</span> -->
                     <!-- <span style="color:#9ea1a6;font-size:12px;margin: 0 20px 0 8px">(选填)</span> -->
                     <el-input 
@@ -98,7 +98,7 @@
                 tagId: state => state.user.tagId,
                 loading_setTag: state => state.user.loading_setTag,
                 loading_search: state => state.user.loading_search,
-                // isInit: state => state.user.isInit,
+                hasAdd: state => state.user.hasAdd,
             })
         },
         mounted() {
@@ -139,6 +139,9 @@
                         name: this.tagNames
                     })
                     .then((res) => {
+
+                        this.canAdd = false
+                        this.$store.commit('changeHasAdd', true)
                         this.$store.commit('changeLoadingSetTag', false)
                         this.$message.success('添加成功')
                         this.tagNames = ''

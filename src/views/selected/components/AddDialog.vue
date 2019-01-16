@@ -25,7 +25,7 @@
             <filter-checkbox :lists="typeLists" v-model="type" right="20px"></filter-checkbox>
             <div class="title-tips">
                 EXCEL表格形式，大小不超过***
-                <span style="color:#1790ff;margin-left:10px;cursor:pointer">下载模版示例</span>
+                <span style="color:#1790ff;margin-left:10px;cursor:pointer" @click="download">下载模版示例</span>
             </div>
             <div class="upload" v-if="show_button">
                <input accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" @change="uploadFile" ref="upload" type="file" id="packageUpload" style="display: none;">
@@ -167,6 +167,10 @@
                 this.filename = ''
                 this.title = ''
                 this.detail = ''
+            },
+            download() {
+                console.log(22)
+                window.open('/api/Crowdchoose/exportTpl', "_self")
             }
         },
     }

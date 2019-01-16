@@ -12,7 +12,7 @@ export default {
         tagName: '',
         tagLists: [],
         loading_setTag: false,
-        isInit: true
+        hasAdd: false
     },
     mutations: {
         changeFilterMode(state, value) {
@@ -48,8 +48,8 @@ export default {
         changeTagLists(state, value) {
             state.tagLists = value
         },
-        changeIsInit(state, value) {
-            state.isInit = value
+        changeHasAdd(state, value) {
+            state.hasAdd = value
         }
     },
     actions: {
@@ -61,6 +61,7 @@ export default {
                 pageSize: store.state.pageSize
             })
             .then((res) => {
+                store.commit('changeHasAdd', false)
                 store.commit('changeLoading', false)
                 store.commit('changeFilterResult', res.data)
                 store.commit('changeFilters', filters)
@@ -69,7 +70,6 @@ export default {
         getFilterResultById(store, res) {
             var id = res.id
             var name = res.name
-
             store.commit('changeLoading', true)
             http.post("/api/Consumer/getUserListByTagId", {
                 id,
