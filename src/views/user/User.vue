@@ -27,9 +27,9 @@
                         {{scope.row.sourcetype ? scope.row.sourcetype  : '——'}}
                     </template>
                 </el-table-column>
-                <el-table-column  prop="cost" label="消费总额">
+                <el-table-column  prop="province" label="省份">
                     <template slot-scope="scope">
-                        {{scope.row.cost ? scope.row.cost  : '——'}}
+                        {{scope.row.province ? scope.row.province  : '——'}}
                     </template>
                 </el-table-column>
                 <el-table-column  prop="brand" label="会员">
