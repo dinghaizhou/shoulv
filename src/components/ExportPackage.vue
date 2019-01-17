@@ -92,11 +92,7 @@
             },
             exportOut() {
                 if(this.$route.path == '/user') {
-                    if(this.filterMode == 'custom') {
-                        if(!this.filters) {
-                            this.$message.warning('请先筛选出特定人群，再导出')
-                            return
-                        }
+                    if(!this.tagId) {
                         if(this.filterResult.searchTotal == 0) {
                             this.$message.warning('筛选人群数量为零，请重新筛选')
                             return
@@ -112,12 +108,7 @@
                         .catch((res) => {
                             this.$message.warning('网络错误')
                         })
-                        
                     } else {
-                        if(!this.tagId) {
-                            this.$message.warning('请先选择人群标签，再导出')
-                            return
-                        }
                         if(this.filterResult.searchTotal == 0) {
                             this.$message.warning('筛选人群数量为零，请重新筛选')
                             return

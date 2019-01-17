@@ -13,7 +13,9 @@ export default {
         tagName: '',
         tagLists: [],
         loading_setTag: false,
+        // 是否禁用
         hasAdd: false,
+        // 是否显示输入框
         canAdd: false,
     },
     mutations: {
@@ -91,7 +93,9 @@ export default {
                 store.commit('changeTagId', id)
                 store.commit('changeTagName', name)
                 store.commit('changeFilters', null)
+                // 是否显示输入框
                 store.commit('changeCanAdd', false)
+                // 是否禁用
                 store.commit('changeHasAdd', true)
             })
             .catch((res) => {
@@ -102,7 +106,7 @@ export default {
         },
         getFilterResultByPage(store) {
             store.commit('changeLoadingTable', true)
-            if(store.state.filterMode == 'custom') {
+            if(!store.state.tagId) {
                 http.post("/api/Consumer/search", {
                     ...store.state.filters,
                     page: store.state.page, 

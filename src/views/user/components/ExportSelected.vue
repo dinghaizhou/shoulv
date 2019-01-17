@@ -64,15 +64,7 @@
                 this.detail = ''
             },
             exportToSelected() {
-                
-
-
-                
-                if(this.filterMode == 'custom') {
-                    if(!this.filters) {
-                        this.$message.warning('请先筛选出特定人群，再导出')
-                        return
-                    }
+                if(!this.tagId) {
                     if(this.filterResult.searchTotal == 0) {
                         this.$message.warning('筛选人群数量为零，请重新筛选')
                         return
@@ -108,10 +100,6 @@
                         this.$store.commit('changeLoading', false)
                     })
                 } else {
-                    if(!this.tagId) {
-                        this.$message.warning('请先选择人群标签，再导出')
-                        return
-                    }
                     if(this.filterResult.searchTotal == 0) {
                         this.$message.warning('筛选人群数量为零，请重新筛选')
                         return

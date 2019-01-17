@@ -77,9 +77,10 @@ export default {
                 this.$refs.password.focus();
                 return;
             }
-            
+
             this.$http.post('/api/login', {name: account, password }, {loading: this})
             .then((res) => {
+                
                 if(this.saveAccount) {
                     this.$Cookies.set('accountInfo', JSON.stringify(this.loginData), { expires: 7 });
                 } else {

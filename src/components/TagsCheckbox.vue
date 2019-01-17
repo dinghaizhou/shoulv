@@ -45,7 +45,6 @@
                 }
             },
             deleteTag(item,index) {
-                console.log(333)
                 this.$emit('delete', item, index)
             }
         }

@@ -40,10 +40,7 @@
         },
         watch: {
              'percent'(value) {
-                console.log(value)
-
                 this.width = value * this.chengshu
-                console.log(this.width)
             },
         },
 

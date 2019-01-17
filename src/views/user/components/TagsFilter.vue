@@ -77,7 +77,6 @@
                     //滑动之后回调函数
                     on: {
                         slideChangeTransitionEnd: function(){
-                            // console.log(this.activeIndex);//切换结束时，告诉我现在是第几个slide
                         },
                     },
                     //左右点击

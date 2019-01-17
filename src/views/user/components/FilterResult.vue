@@ -127,7 +127,6 @@
                 this.packageDialogVisiable = true
             },
             exportAsSelected() {
-                console.log(this.filters, this.tagId)
                 this.selectedDialogVisiable = true
             },
             showadd() {

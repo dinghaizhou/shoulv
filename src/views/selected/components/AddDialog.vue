@@ -157,7 +157,6 @@
                 if(this.is_uploading) {
                     this.cancel()
                 } 
-                console.log(333)
                 this.process = '0'
                 this.file = null
                 this.show_button = true
@@ -172,7 +171,6 @@
                 this.detail = ''
             },
             download() {
-                console.log(22)
                 window.open('/api/Crowdchoose/exportTpl', "_self")
             }
         },

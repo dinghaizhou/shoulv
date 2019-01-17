@@ -44,8 +44,16 @@
                 </el-table-column>
 
                 <el-table-column align="center" prop="year" label="年龄"></el-table-column>
-                <el-table-column align="center" prop="birthday" label="生日"></el-table-column>
-                <el-table-column align="center" prop="phone" label="手机"></el-table-column>
+                <el-table-column align="center" prop="birthday" label="生日">
+                    <template slot-scope="scope">
+                        {{scope.row.birthday ? scope.row.birthday  : '——'}}
+                    </template>
+                </el-table-column>
+                <el-table-column align="center" prop="phone" label="手机">
+                    <template slot-scope="scope">
+                        {{scope.row.phone ? scope.row.phone  : '——'}}
+                    </template>
+                </el-table-column>
                 <div slot="empty">
                     <img src="@/assets/images/no-list.png" style="margin-top: 90px;width:200px;" alt="">
                     <div style="margin:25px 0 90px;font-size: 14px;color: #575759;">还未创建会员列表</div>
@@ -119,9 +127,9 @@
             changeFilterMode(value) {
                 if(this.filterMode != value) {
                     this.$store.commit('changeFilterMode', value)
+                    //切换时清楚tagid
                     this.$store.commit('changeTagId', '')
                     this.$store.commit('changeTagName', '')
-                    
                     // this.$store.commit('changeFilterResult', {rate:0, searchTotal:0})
                     // this.$store.commit('changeFilters', null)
                 }
