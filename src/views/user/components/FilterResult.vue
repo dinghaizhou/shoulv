@@ -138,6 +138,21 @@
                     this.$message.warning('请先筛选出特定人群再保存')
                     return
                 }
+                var isEmpty = true
+                for (var prop in this.filters) {
+                    if(this.filters[prop]) {
+                        isEmpty = false
+                        break;
+                    }
+                }
+                if(isEmpty) {
+                    this.$message.warning('筛选条件为空，请重新筛选')
+                    return
+                }
+                if(this.filterResult.searchTotal == 0) {
+                    this.$message.warning('筛选人群数量为零，请重新筛选')
+                    return
+                }
                 if (!this.tagNames) {
                     this.$message.warning('请输入标签名')
                     return
