@@ -21,35 +21,35 @@
             v-loading="loading_table"
             :data="filterResult.list"
             header-row-class-name="table-header">
-                <el-table-column align="center" prop="userid" width="100" label="用户ID"></el-table-column>
-                <el-table-column align="center" prop="sourcetype" label="用户来源">
+                <el-table-column  prop="userid" width="100" label="用户ID"></el-table-column>
+                <el-table-column  prop="sourcetype" label="用户来源">
                     <template slot-scope="scope">
                         {{scope.row.sourcetype ? scope.row.sourcetype  : '——'}}
                     </template>
                 </el-table-column>
-                <el-table-column align="center" prop="cost" label="消费总额">
+                <el-table-column  prop="cost" label="消费总额">
                     <template slot-scope="scope">
                         {{scope.row.cost ? scope.row.cost  : '——'}}
                     </template>
                 </el-table-column>
-                <el-table-column align="center" prop="brand" label="会员">
+                <el-table-column  prop="brand" label="会员">
                     <template slot-scope="scope">
                         {{scope.row.brand ? scope.row.brand  : '——'}}
                     </template>
                 </el-table-column>
-                <el-table-column align="center" prop="sex" label="性别">
+                <el-table-column  prop="sex" label="性别">
                     <!-- <template slot-scope="scope">
                         {{scope.row.sex ? scope.row.sex  : '——'}}
                     </template> -->
                 </el-table-column>
 
-                <el-table-column align="center" prop="year" label="年龄"></el-table-column>
-                <el-table-column align="center" prop="birthday" label="生日">
+                <el-table-column  prop="year" label="年龄"></el-table-column>
+                <el-table-column  prop="birthday" label="生日">
                     <template slot-scope="scope">
                         {{scope.row.birthday ? scope.row.birthday  : '——'}}
                     </template>
                 </el-table-column>
-                <el-table-column align="center" prop="phone" label="手机">
+                <el-table-column  prop="phone" label="手机">
                     <template slot-scope="scope">
                         {{scope.row.phone ? scope.row.phone  : '——'}}
                     </template>

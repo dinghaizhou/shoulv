@@ -21,13 +21,13 @@
                     type="selection"
                     width="55">
                     </el-table-column>
-                    <el-table-column align="center" prop="name" label="人群名称"></el-table-column>
-                    <el-table-column align="center" prop="describe" label="人群描述"></el-table-column>
-                    <el-table-column align="center" prop="mode" label="创建方式"></el-table-column>
-                    <el-table-column align="center" prop="type" label="类型"></el-table-column>
-                    <el-table-column align="center" prop="number" label="包含人数"></el-table-column>
-                    <el-table-column align="center" prop="time" label="创建时间"></el-table-column>
-                    <el-table-column align="center" width='250' label="操作">
+                    <el-table-column  prop="name" label="人群名称"></el-table-column>
+                    <el-table-column  prop="describe" label="人群描述"></el-table-column>
+                    <el-table-column  prop="mode" label="创建方式"></el-table-column>
+                    <el-table-column  prop="type" label="类型"></el-table-column>
+                    <el-table-column  prop="number" label="包含人数"></el-table-column>
+                    <el-table-column  prop="time" label="创建时间"></el-table-column>
+                    <el-table-column  width='250' label="操作">
                         <template slot-scope="scope">
                             <el-button
                             @click="edit(scope.row)"
