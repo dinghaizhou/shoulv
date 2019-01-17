@@ -141,7 +141,7 @@
             },
             insight(row) {
                 this.insightVisiable = true
-                this.currentRow = row
+                this.currentRow = JSON.parse(JSON.stringify(row)) 
             },
             edit(row) {
                 this.editVisiable = true

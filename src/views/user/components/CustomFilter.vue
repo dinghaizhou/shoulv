@@ -41,12 +41,12 @@
             <div class="section clearfix pull-left">
                 <div class="section-title">品牌会员：</div>
                 <div class="section-body">
-                    <el-select v-model="brand" clearable placeholder="不限" class="m-b-10">
+                    <el-select v-model="brandid" clearable placeholder="不限" class="m-b-10">
                         <el-option
                         v-for="item in brandOptions"
-                        :key="item.brandid"
+                        :key="item.id"
                         :label="item.name"
-                        :value="item.brandid">
+                        :value="item.id">
                         </el-option>
                     </el-select>
                 </div>
@@ -88,7 +88,7 @@
                 frequencyKind: '',
                 sourceKind: '',
                 costabilityKind: '',
-                brand: '',
+                brandid: '',
                 actionStatus: '',
                 loading: false
             }
@@ -120,8 +120,8 @@
         },
         methods: {
             search() {
-                let { primaryKind,actionKind,frequencyKind,sourceKind,costabilityKind,brand,actionStatus} = this
-                var filters = {primaryKind,actionKind,frequencyKind,sourceKind,costabilityKind,brand,actionStatus}
+                let { primaryKind,actionKind,frequencyKind,sourceKind,costabilityKind,brandid,actionStatus} = this
+                var filters = {primaryKind,actionKind,frequencyKind,sourceKind,costabilityKind,brandid,actionStatus}
                 this.$store.commit('changePage', 1)
                 this.$store.dispatch('getFilterResultByFilters', filters)
             },
@@ -132,7 +132,7 @@
                     frequencyKind: '',
                     sourceKind: '',
                     costabilityKind: '',
-                    brand: '',
+                    brandid: '',
                     actionStatus: '',
                 })
                 this.primaryKind = '';
@@ -140,7 +140,7 @@
                 this.frequencyKind = '';
                 this.sourceKind = '';
                 this.costabilityKind = '';
-                this.brand = "";
+                this.brandid = "";
                 this.actionStatus = ''
             }
         }

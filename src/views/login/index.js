@@ -42,19 +42,16 @@ export default {
     actions: {
         GetInfo({commit}) {
             return new Promise((resolve, reject) => {
-                // 请求用户信息
+                // 模拟请求用户信息 roles
                 let token = localStorage.getItem('token')
-                setTimeout(() => {
-                    var data = {}
-                    if (token == 1) {
-                        data.roles = ['admin']
-                    } else {
-                        data.roles = ['normal']
-
-                    }
-                    commit('SET_ROLES', data.roles)
-                    resolve(data)
-                }, 1000);
+                var data = {}
+                if (token == 1) {
+                    data.roles = ['admin']
+                } else {
+                    data.roles = ['normal']
+                }
+                commit('SET_ROLES', data.roles)
+                resolve(data)
             })
         },
         GenerateRoutes(context, roles) {

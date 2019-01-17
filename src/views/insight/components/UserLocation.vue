@@ -67,7 +67,6 @@
                     tooltip: {
                         // position: ['80%', '50%'],
                         formatter: (params) => {
-                            console.log(params)
                             return  '省份：   ' + params.name + '</br>' +
                                     '占比：   ' + params.data.value + '%'
                         }

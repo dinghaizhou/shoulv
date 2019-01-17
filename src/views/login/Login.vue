@@ -77,6 +77,7 @@ export default {
                 this.$refs.password.focus();
                 return;
             }
+            
             this.$http.post('/api/login', {name: account, password }, {loading: this})
             .then((res) => {
                 if(this.saveAccount) {

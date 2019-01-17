@@ -1,4 +1,5 @@
 import http from '@/utils/http'
+import { Message } from 'element-ui';
 export default {
     state: {
         filterMode: 'custom',
@@ -70,6 +71,10 @@ export default {
                 store.commit('changeFilterResult', res.data)
                 store.commit('changeFilters', filters)
             })
+            .catch((res) => {
+                store.commit('changeLoading', false)
+                if(!res.msg) Message.warning('网络错误')
+            })
         },
         getFilterResultById(store, res) {
             var id = res.id
@@ -85,10 +90,14 @@ export default {
                 store.commit('changeFilterResult', res.data)
                 store.commit('changeTagId', id)
                 store.commit('changeTagName', name)
-
                 store.commit('changeFilters', null)
                 store.commit('changeCanAdd', false)
                 store.commit('changeHasAdd', true)
+            })
+            .catch((res) => {
+                store.commit('changeLoading', false)
+                if(!res.msg) Message.warning('网络错误')
+
             })
         },
         getFilterResultByPage(store) {
@@ -103,6 +112,10 @@ export default {
                     store.commit('changeLoadingTable', false)
                     store.commit('changeFilterResult', res.data)
                 })
+                .catch((res) => {
+                    if(!res.msg) Message.warning('网络错误')
+                    store.commit('changeLoadingTable', false)
+                })
             } else {
                 http.post("/api/Consumer/getUserListByTagId", {
                     id:  store.state.tagId,
@@ -112,6 +125,10 @@ export default {
                 .then((res) => {
                     store.commit('changeLoadingTable', false)
                     store.commit('changeFilterResult', res.data)
+                })
+                .catch((res) => {
+                    store.commit('changeLoadingTable', false)
+                    if(!res.msg) Message.warning('网络错误')
                 })
             }
         },
@@ -125,7 +142,6 @@ export default {
                     if(!lists[j]) lists[j] = []
                     lists[j].push(origin_lists[i])
                 }
-                console.log(lists)
                 store.commit('changeTagLists', lists)
             })
         }

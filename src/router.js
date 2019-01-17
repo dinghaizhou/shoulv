@@ -75,7 +75,8 @@ router.beforeEach((to, from, next) => {
             next({path: '/'})
         } else {
             if (store.state.login.user.roles.length === 0) {
-                store.dispatch('GetInfo').then(res => { // 拉取info
+                store.dispatch('GetInfo').then(res => { 
+                    // 拉取info
                     const roles = res.roles;
                     store.dispatch('GenerateRoutes', roles).then(() => { // 生成可访问的路由表
                         router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表

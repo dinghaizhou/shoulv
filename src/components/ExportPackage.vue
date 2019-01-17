@@ -110,7 +110,7 @@
                             this.$emit('update:visiable', false)
                         })
                         .catch((res) => {
-                            console.log(res)
+                            this.$message.warning('网络错误')
                         })
                         
                     } else {
@@ -123,7 +123,7 @@
                             return
                         }
 
-                        this.$http.post('/api/Consumer/exportSearchCrowd', {
+                        this.$http.post('/api/Consumer/exportTagCrowd', {
                             id: this.tagId 
                         },{
                             responseType: 'blob'

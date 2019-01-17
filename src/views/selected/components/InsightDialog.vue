@@ -35,17 +35,19 @@
         },
         watch: {
             currentRow() {
-                this.$http.get('/api/Insight/getInsightById', {
-                    params:{
-                        id: this.currentRow.id
-                    }
-                })
-                .then((res) => {
-                    this.insightData = res.data
-                })
-                .catch((res) => {
-                    this.insightData = null
-                })
+                if(this.visiable) {
+                    this.$http.get('/api/Insight/getInsightById', {
+                        params:{
+                            id: this.currentRow.id
+                        }
+                    })
+                    .then((res) => {
+                        this.insightData = res.data
+                    })
+                    .catch((res) => {
+                        this.insightData = null
+                    })
+                }
             }
         },
         methods: {
