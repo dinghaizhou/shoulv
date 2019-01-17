@@ -15,17 +15,18 @@
                         </span>
                         
                     </div>
-                    <div style="line-height:32px;font-size: 14px;" class="pull-left" v-else>
+                    <div style="line-height:32px;font-size: 14px;" class="pull-left addTags" v-else>
                         <!-- <span> {{filterMode == 'custom' ? '添加' : '修改'}}标签</span> -->
                         <!-- <span style="color:#9ea1a6;font-size:12px;margin: 0 20px 0 8px">(选填)</span> -->
                         <el-input 
                         maxlength="10"
                         style="width:160px;margin-right:10px;"
+                        class="pull-left"
                         placeholder="请输入标签名"
                         v-model="tagNames"
                         ></el-input>
-                        <el-button type="primary" class="button-mini" @click="saveTags">保存</el-button>
-                        <el-button class="button-mini" @click="deleteTags">取消</el-button>
+                        <el-button type="primary" class="button-mini pull-left" @click="saveTags">保存</el-button>
+                        <el-button class="button-mini pull-left" @click="deleteTags">取消</el-button>
                     </div>
                 
             </el-col>

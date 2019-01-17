@@ -9,8 +9,8 @@
         <div class="innerbox">
             <el-row class="clearfix" style="margin-bottom:20px;">
                 <el-input v-model="search_text" class="pull-left" placeholder="请输入搜索内容" style="width:322px;margin-right:30px;"></el-input>
-                <el-button class="button-max pull-left" style="line-height:38px;" @click="search">确认</el-button>
-                <el-button class="button-max pull-left" style="line-height:38px;" @click="cancel_search">重置</el-button>
+                <el-button class="button-max pull-left"  @click="search">确认</el-button>
+                <el-button class="button-max pull-left"  @click="cancel_search">重置</el-button>
             </el-row>
             <el-row>
                 <el-table

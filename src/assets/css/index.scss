@@ -37,8 +37,8 @@ a {text-decoration:none;outline:none;color:#20a0ff;}
 .clearfix::after {content: '';display: block; clear:both;height:0;overflow: hidden;}
 .el-pagination {text-align: right;margin-top:20px;}
 .el-input__inner {line-height: 36px; height: 36px;}
+.addTags .el-input__inner {line-height: 32px; height: 32px;}
 .el-dialog__title {font-weight: bolder; font-size: 16px;color: #393c42;line-height:26px;}
-
 .el-dialog__body {padding: 0px 20px 30px;color: #404143;font-size: 12px;padding:0px 30px 40px;}
 .el-dialog__header {padding:30px 30px 10px;}
 .el-textarea__inner {height: 120px;}
