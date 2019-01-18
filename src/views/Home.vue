@@ -3,7 +3,7 @@
         <el-row class="panel-top">
             <el-col :span="18">
                 <img class='pull-left logo' src="../assets/images/logo.png">
-                <div class='pull-left' style="font-size:14px;margin-left:10px;font-weight:600;">爱点击CDP</div>
+                <div class='pull-left' style="font-size:14px;margin-left:10px;font-weight:600;">CDP</div>
             </el-col>
             <el-col :span="6" class="logout">
                 <a href="javascript:;" @click='logout' class="pull-right">退出</a>			
