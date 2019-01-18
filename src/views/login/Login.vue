@@ -3,7 +3,7 @@
         <div></div>
         <div class="submit-form">
                 <div class="title">
-                    CDP后台管理系统
+                    DMP后台管理系统
                 </div>
                 <div class="login-input">
                     <input placeholder="User name" ref="account" autofocus @keyup.enter="changeFocus" v-model="loginData.account" class="input" id="name" type="text">
